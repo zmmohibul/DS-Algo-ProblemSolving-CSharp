@@ -43,6 +43,14 @@ namespace DelegatesAndLambdas
             
             
             CalculateAndPrint(21, 21, Add);
+
+            /*
+             * Here instead of defining a new delegate then writing a function
+             * that fulfills the contract of that delegate and after that finally
+             * passing a reference to that function, we are simply writing the
+             * delegate in line. This is also known as anonymous function.
+             */
+            CalculateAndPrint(21, 21, delegate(int n1, int n2) { return n1 + n2; });
         }
 
         static int Add(int n1, int n2)
