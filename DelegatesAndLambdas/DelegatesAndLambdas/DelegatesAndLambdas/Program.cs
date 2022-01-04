@@ -51,6 +51,9 @@ namespace DelegatesAndLambdas
              * delegate in line. This is also known as anonymous function.
              */
             CalculateAndPrint(21, 21, delegate(int n1, int n2) { return n1 + n2; });
+            
+            CalculateAndPrint(21, 21, (int n1, int n2) => { return n1 + n2; });
+            CalculateAndPrint(21, 21, (n1, n2) =>  n1 + n2);
         }
 
         static int Add(int n1, int n2)
