@@ -39,10 +39,12 @@ namespace DelegatesAndLambdas
 
             f = Subtract;
             Console.WriteLine(f(21, 10)); // Output : 11
+            
+            
+            
+            CalculateAndPrint(21, 21, Add);
         }
 
-        
-        
         static int Add(int n1, int n2)
         {
             return n1 + n2;
@@ -51,6 +53,17 @@ namespace DelegatesAndLambdas
         static int Subtract(int n1, int n2)
         {
             return n1 - n2;
+        }
+
+        /*
+             * The CalculateAndPrint method takes two integers
+             * and a MathOp delegate to compute the result using
+             * the received delegate and print the result.
+        */
+        static void CalculateAndPrint(int n1, int n2, MathOp f)
+        {
+            var result = f(n1, n2);
+            Console.WriteLine(result);
         }
     }
 }
