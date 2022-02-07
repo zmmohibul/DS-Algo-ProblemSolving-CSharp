@@ -78,6 +78,9 @@ var cars = JsonSerializer.Deserialize<CarData[]>(fileContent);
 //         Console.WriteLine($"{car.Key} - {car.Count}");
 //     });
 
+
+
+// print a list of makes that have at least 2 models with >= 400hp
 class CarData
 {
     [JsonPropertyName("id")]
