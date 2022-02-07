@@ -5,6 +5,10 @@ namespace IntList
         public int First { get; set; }
         public IntList Rest { get; set; }
 
+        public IntList()
+        {
+        }
+
         public IntList(int first, IntList rest)
         {
             First = first;
@@ -21,19 +25,6 @@ namespace IntList
             return 1 + Rest.Length();
         }
 
-        public int LengthIterative()
-        {
-            IntList p = this;
-            int length = 0;
-            while (p != null)
-            {
-                length += 1;
-                p = p.Rest;
-            }
-
-            return length;
-        }
-
         public int Get(int i)
         {
             if (i == 0)
@@ -44,15 +35,52 @@ namespace IntList
             return Rest.Get(i - 1);  
         }
 
-        public int GetIterative(int i)
+        public static IntList IncrList(IntList L, int x)
         {
-            var p = this;
-            for (int j = 0; j < i; j++)
+            var listToReturn = new IntList();
+            IntList.CopyList(L, listToReturn);
+            listToReturn.IncrementList(x);
+            return listToReturn;
+        }
+
+        private void IncrementList(int x)
+        {
+            if (Rest == null)
             {
-                p = p.Rest;
+                return;
             }
 
-            return p.First;
+            First += 3;
+            Rest.IncrementList(x);
+        }
+
+        public static IntList CopyList(IntList ListToCopyFrom, IntList ListToCopyTo)
+        {
+            if (ListToCopyFrom.Rest == null)
+            {
+                return ListToCopyTo;
+            }
+            ListToCopyTo.First = ListToCopyFrom.First;
+            ListToCopyTo.Rest = new IntList();
+            return IntList.CopyList(ListToCopyFrom.Rest, ListToCopyTo.Rest);
+        }
+
+        public static IntList DecrList(IntList L, int x)
+        {
+            L.DecrementList(x);
+            return L;
+        }
+
+        public void DecrementList(int x)
+        {
+            if (Rest == null)
+            {
+                First -= x;
+                return;
+            }
+
+            First -= x;
+            Rest.DecrementList(x);
         }
     }
 }
