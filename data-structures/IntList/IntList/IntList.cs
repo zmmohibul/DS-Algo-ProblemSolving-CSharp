@@ -47,6 +47,7 @@ namespace IntList
         {
             if (Rest == null)
             {
+                First += x;
                 return;
             }
 
@@ -54,15 +55,15 @@ namespace IntList
             Rest.IncrementList(x);
         }
 
-        public static IntList CopyList(IntList ListToCopyFrom, IntList ListToCopyTo)
+        public static void CopyList(IntList ListToCopyFrom, IntList ListToCopyTo)
         {
-            if (ListToCopyFrom.Rest == null)
+            if (ListToCopyFrom == null)
             {
-                return ListToCopyTo;
+                return;
             }
             ListToCopyTo.First = ListToCopyFrom.First;
             ListToCopyTo.Rest = new IntList();
-            return IntList.CopyList(ListToCopyFrom.Rest, ListToCopyTo.Rest);
+            IntList.CopyList(ListToCopyFrom.Rest, ListToCopyTo.Rest);
         }
 
         public static IntList DecrList(IntList L, int x)
@@ -71,7 +72,7 @@ namespace IntList
             return L;
         }
 
-        public void DecrementList(int x)
+        private void DecrementList(int x)
         {
             if (Rest == null)
             {

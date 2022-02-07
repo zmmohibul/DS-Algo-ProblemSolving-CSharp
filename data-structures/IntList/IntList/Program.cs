@@ -33,6 +33,7 @@ namespace IntList
             Console.WriteLine(IL.Get(3));
             Console.WriteLine(L.Get(4));
             Console.WriteLine(IL.Get(4));
+            Console.WriteLine(IL.Get(5));
         }
     }
 }
