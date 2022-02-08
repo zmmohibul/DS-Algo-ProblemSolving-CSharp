@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrequencyCounterPattern", "FrequencyCounterPattern\FrequencyCounterPattern.csproj", "{B08D3233-E7E7-4A68-A42C-FBEB4BEAE1BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B08D3233-E7E7-4A68-A42C-FBEB4BEAE1BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B08D3233-E7E7-4A68-A42C-FBEB4BEAE1BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B08D3233-E7E7-4A68-A42C-FBEB4BEAE1BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B08D3233-E7E7-4A68-A42C-FBEB4BEAE1BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
