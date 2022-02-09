@@ -34,6 +34,7 @@ namespace SLList
         {
             var n = new IntNode(x, Sentinal.Next);
             Sentinal.Next = n;
+            Length += 1;
         }
 
         public int GetFirst()
@@ -45,6 +46,7 @@ namespace SLList
         {
             var lastNode = GetLastNode(Sentinal.Next);
             lastNode.Next = new IntNode(x, null);
+            Length += 1;
         }
         
         private IntNode GetLastNode(IntNode P)
@@ -63,6 +65,21 @@ namespace SLList
         {
             var lastNode = GetLastNode(Sentinal.Next);
             return lastNode.Item;
+        }
+
+        public int GetLengthRecursively()
+        {
+            return GetLengthRecursively(Sentinal.Next);
+        }
+
+        private int GetLengthRecursively(IntNode P)
+        {
+            if (P.Next == null)
+            {
+                return 1;
+            }
+
+            return 1 + GetLengthRecursively(P.Next);
         }
     }
 }
