@@ -40,5 +40,29 @@ namespace SLList
         {
             return Sentinal.Next.Item;
         }
+
+        public void AddLast(int x)
+        {
+            var lastNode = GetLastNode(Sentinal.Next);
+            lastNode.Next = new IntNode(x, null);
+        }
+        
+        private IntNode GetLastNode(IntNode P)
+        {
+            if (P.Next == null)
+            {
+                return P;
+            }
+            else
+            {
+                return GetLastNode(P.Next);
+            }
+        }
+
+        public int GetLast()
+        {
+            var lastNode = GetLastNode(Sentinal.Next);
+            return lastNode.Item;
+        }
     }
 }
