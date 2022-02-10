@@ -1,5 +1,7 @@
 ﻿
 
+using System.Text;
+
 Console.WriteLine(Recursion.Power(2, 4));
 Console.WriteLine(Recursion.Factorial(7));
 
@@ -12,6 +14,7 @@ var l = new List<int>() {1, 2, 3, 4, 5};
 Console.WriteLine(Recursion.SumOfArray(l));
 Console.WriteLine(Recursion.ProductOfList(l));
 Console.WriteLine(Recursion.RecursiveRange(10));
+Console.WriteLine(Recursion.ReverseString("abcde"));
 
 class Recursion
 {
@@ -71,6 +74,22 @@ class Recursion
         }
 
         return n + RecursiveRange(n - 1);
+    }
+
+    public static string ReverseString(string str)
+    {
+        return ReverseString(new StringBuilder(str), new StringBuilder(string.Empty), 1).ToString();
+    }
+
+    public static StringBuilder ReverseString(StringBuilder str, StringBuilder strReversed, int i)
+    {
+        if (i > str.Length)
+        {
+            return strReversed;
+        }
+        
+        strReversed.Append(str[^i]);
+        return ReverseString(str, strReversed, i += 1);
     }
 }
 
