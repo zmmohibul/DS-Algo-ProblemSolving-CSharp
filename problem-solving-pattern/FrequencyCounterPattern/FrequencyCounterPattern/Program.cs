@@ -163,6 +163,32 @@ bool DigitsHaveSameFrequency(int n1, int n2)
     return true;
 }
 
+bool AreThereDuplicates(List<int> numbers)
+{
+    var numbersFreq = new Dictionary<int, int>();
+    foreach (var number in numbers)
+    {
+        if (!numbersFreq.ContainsKey(number))
+        {
+            numbersFreq[number] = 1;
+        }
+        else
+        {
+            numbersFreq[number] += 1;
+        }
+    }
+
+    foreach (var (key, value) in numbersFreq)
+    {
+        if (value > 1)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void PrintDictionary<T>(IDictionary<T, int> dictionary)
 {
     foreach (var (key, value) in dictionary)
@@ -173,4 +199,5 @@ void PrintDictionary<T>(IDictionary<T, int> dictionary)
 
 // Console.WriteLine(Same(new List<int>() {1, 2, 2, 2, 3, 3}, new List<int>() {9, 1, 4, 4, 8, 9}));
 // Console.WriteLine(ValidAnagram("ababcaa", "caabbaw"));
-Console.WriteLine(DigitsHaveSameFrequency(112231323, 123123123));
+// Console.WriteLine(DigitsHaveSameFrequency(112231323, 123123123));
+Console.WriteLine(AreThereDuplicates(new List<int>() {1, 2, 3, 4, 5, 4, 2}));
