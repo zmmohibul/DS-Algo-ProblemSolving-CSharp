@@ -51,6 +51,8 @@
     return true;
 }
 
+
+
 bool ValidAnagram(string s1, string s2)
 {
     if (s1.Length != s2.Length)
@@ -104,6 +106,63 @@ bool ValidAnagram(string s1, string s2)
     return true;
 }
 
+
+
+bool DigitsHaveSameFrequency(int n1, int n2)
+{
+    var n1Freq = new Dictionary<int, int>();
+    while (n1 != 0)
+    {
+        var digit = n1 % 10;
+        if (!n1Freq.ContainsKey(digit))
+        {
+            n1Freq[digit] = 1;
+        }
+        else
+        {
+            n1Freq[digit] += 1;
+        }
+
+        n1 /= 10;
+    }
+    
+    var n2Freq = new Dictionary<int, int>();
+    while (n2 != 0)
+    {
+        var digit = n2 % 10;
+        if (!n2Freq.ContainsKey(digit))
+        {
+            n2Freq[digit] = 1;
+        }
+        else
+        {
+            n2Freq[digit] += 1;
+        }
+
+        n2 /= 10;
+    }
+
+    foreach (var (key, value) in n1Freq)
+    {
+        if (!n2Freq.ContainsKey(key))
+        {
+            return false;
+        }
+
+        if (n2Freq[key] != value)
+        {
+            return false;
+        }
+    }
+
+    Console.WriteLine("n1Freq: ");
+    PrintDictionary(n1Freq);
+    Console.WriteLine("n2Freq: ");
+    PrintDictionary(n2Freq);
+
+    return true;
+}
+
 void PrintDictionary<T>(IDictionary<T, int> dictionary)
 {
     foreach (var (key, value) in dictionary)
@@ -112,5 +171,6 @@ void PrintDictionary<T>(IDictionary<T, int> dictionary)
     }
 }
 
-Console.WriteLine(Same(new List<int>() {1, 2, 2, 2, 3, 3}, new List<int>() {9, 1, 4, 4, 8, 9}));
-Console.WriteLine(ValidAnagram("ababcaa", "caabbaw"));
+// Console.WriteLine(Same(new List<int>() {1, 2, 2, 2, 3, 3}, new List<int>() {9, 1, 4, 4, 8, 9}));
+// Console.WriteLine(ValidAnagram("ababcaa", "caabbaw"));
+Console.WriteLine(DigitsHaveSameFrequency(112231323, 123123123));
