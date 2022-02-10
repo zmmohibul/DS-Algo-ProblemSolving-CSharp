@@ -11,9 +11,30 @@ var l = new List<int>() {1, 2, 3, 4, 5};
 
 Console.WriteLine(Recursion.SumOfArray(l));
 Console.WriteLine(Recursion.ProductOfList(l));
+Console.WriteLine(Recursion.RecursiveRange(10));
 
 class Recursion
 {
+    public static int Power(int baseNum, int exponent)
+    {
+        if (exponent == 0)
+        {
+            return 1;
+        }
+
+        return baseNum * Power(baseNum, exponent - 1);
+    }
+
+    public static int Factorial(int n)
+    {
+        if (n == 0)
+        {
+            return 1;
+        }
+
+        return n * Factorial(n - 1);
+    }
+    
     public static int ProductOfList(List<int> numbers)
     {
         if (numbers.Count == 0)
@@ -41,24 +62,15 @@ class Recursion
 
         return numbers[i] + SumOfArray(numbers, i += 1);
     }
-    public static int Power(int baseNum, int exponent)
-    {
-        if (exponent == 0)
-        {
-            return 1;
-        }
 
-        return baseNum * Power(baseNum, exponent - 1);
-    }
-
-    public static int Factorial(int n)
+    public static int RecursiveRange(int n)
     {
         if (n == 0)
         {
-            return 1;
+            return n;
         }
 
-        return n * Factorial(n - 1);
+        return n + RecursiveRange(n - 1);
     }
 }
 
