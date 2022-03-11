@@ -37,17 +37,25 @@ string FindLongestSubstring(string s)
     //   0123456789012345 
     StringBuilder sb = new StringBuilder();
     int maxLength = 0;
-    Dictionary<char, bool> containsChar = new Dictionary<char, bool>();
+    Dictionary<char, int> containsChar = new Dictionary<char, int>();
+    Dictionary<string, int> longestWords = new Dictionary<string, int>();
+
     int i, j;
     for (i = 0, j = 1; j < s.Length; j++) {
-        containsChar[s[i]] = true;
+        containsChar[s[i]] = i;
         if (containsChar.ContainsKey(s[j])) {
-            containsChar = new Dictionary<char, bool>();
-            i = j;
-            continue;
+            sb.Insert(0, s[i]);
+            i = containsChar[s[j]] + 1;
+            containsChar = new Dictionary<char, int>();
+            containsChar[s[j]] = j;
+            containsChar[s[i]] = i;
+            longestWords[sb.ToString()] = sb.Length;
+            sb = new StringBuilder();
+            sb.Append(s[j]);
         } 
         else {
-            containsChar[s[j]] = true;
+            sb.Append(s[j]);
+            containsChar[s[j]] = j;
         }
     }
 
