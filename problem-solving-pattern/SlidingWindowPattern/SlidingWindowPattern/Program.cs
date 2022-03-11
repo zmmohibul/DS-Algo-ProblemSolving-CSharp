@@ -39,22 +39,27 @@ int FindLongestSubstring(string s)
 
     int maxLength = 0;
     int currentStringLength = 1;
-    int i, j;
-    for (i = 0, j = 1; j < s.Length; j++) {
+    int i = 0;
+    int j = 1;
+    int prevJ = 1;
+    containsChar[s[i]] = i;
+    while (j < s.Length) {
         containsChar[s[i]] = i;
-        if (!containsChar.ContainsKey(s[j])) {
+        if(!containsChar.ContainsKey(s[j])) {
             containsChar[s[j]] = j;
             currentStringLength += 1;
+            j += 1;
         } else {
             if (currentStringLength > maxLength) {
                 maxLength = currentStringLength;
             }
             i = j - 1;
+            currentStringLength = 1;
             containsChar = new Dictionary<char, int>();
-            containsChar[s[j]] = j;
-            currentStringLength = 2;
         }
     }
+
+    // try removing from dictionary
 
     return maxLength;
 }
