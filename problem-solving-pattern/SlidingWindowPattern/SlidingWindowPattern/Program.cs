@@ -69,8 +69,33 @@ int FindLongestSubstring(string s)
     return maxLength;
 }
 
+int MinSubArrayLength(int[] arr, int target) 
+{
+    int length = 1;
+    int minLength = 100000;
+    int i, j;
+    int current = arr[0];
+    for (i = 0, j = 1; j < arr.Length; j++) {
+        if (current < target) {
+            current += arr[j];
+            length += 1;
+        } else {
+            current = arr[j];
+            length = 1;
+            if (length < minLength) {
+                minLength = length;
+            }
+        }
+
+    }
+
+
+    return length;
+}
+
 var l = new List<int>() {1, 4, 6, 9, 13, 88, 91, 94, 95, 17, 22, 29, 31, 83, 88, 91, 94, 96};
 Console.WriteLine(MaxSubArraySum(l, 4));
 Console.WriteLine(FindLongestSubstring("longestsubstring"));
 Console.WriteLine(FindLongestSubstring("thisisawesome"));
 Console.WriteLine(FindLongestSubstring("thecatinthehat"));
+Console.WriteLine(MinSubArrayLength(new int[] {2, 1, 6, 5, 4}, 9));
