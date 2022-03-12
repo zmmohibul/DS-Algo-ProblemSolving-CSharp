@@ -35,31 +35,36 @@ int FindLongestSubstring(string s)
 {
     //  "longestsubstring"
     //   0123456789012345 
-    Dictionary<char, int> containsChar = new Dictionary<char, int>();
+    Dictionary<string, Tuple<int, int>> words = new Dictionary<string, Tuple<int, int>>();
+
+    Dictionary<char, int> charContains = new Dictionary<char, int>();
 
     int maxLength = 0;
-    int currentStringLength = 1;
     int i = 0;
     int j = 1;
-    int prevJ = 1;
-    containsChar[s[i]] = i;
     while (j < s.Length) {
-        containsChar[s[i]] = i;
-        if(!containsChar.ContainsKey(s[j])) {
-            containsChar[s[j]] = j;
-            currentStringLength += 1;
+        charContains[s[i]] = i;
+        if (!charContains.ContainsKey(s[j])) {
+            charContains[s[j]] = j;
             j += 1;
         } else {
-            if (currentStringLength > maxLength) {
-                maxLength = currentStringLength;
-            }
-            i = j - 1;
-            currentStringLength = 1;
-            containsChar = new Dictionary<char, int>();
+            words[s.Substring(i, j - i)] = new Tuple<int, int>(i, j - 1);
+            i = charContains[s[j]] + 1;
+            j = i + 1;
+            charContains = new Dictionary<char, int>();
+            charContains[s[i]] = i;
         }
     }
 
-    // try removing from dictionary
+    words[s.Substring(i)] = new Tuple<int, int>(i, j - 1);
+
+    foreach (var kv in words) {
+        int wordLength = kv.Value.Item2 - kv.Value.Item1 + 1;
+        if (wordLength > maxLength) {
+            maxLength = wordLength;
+        }
+    }
+    
 
     return maxLength;
 }
@@ -67,3 +72,5 @@ int FindLongestSubstring(string s)
 var l = new List<int>() {1, 4, 6, 9, 13, 88, 91, 94, 95, 17, 22, 29, 31, 83, 88, 91, 94, 96};
 Console.WriteLine(MaxSubArraySum(l, 4));
 Console.WriteLine(FindLongestSubstring("longestsubstring"));
+Console.WriteLine(FindLongestSubstring("thisisawesome"));
+Console.WriteLine(FindLongestSubstring("thecatinthehat"));
