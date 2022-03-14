@@ -12,6 +12,8 @@ namespace SLList
             SL.AddLast(20);
             Console.WriteLine(SL.GetLast());
             Console.WriteLine(SL.GetLengthRecursively());
+            SL.SquareAndInsert(5);
+            SL.SquareAndInsert(7);
         }
     }
 }

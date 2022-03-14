@@ -81,5 +81,24 @@ namespace SLList
 
             return 1 + GetLengthRecursively(P.Next);
         }
+
+        public void SquareAndInsert(int x) 
+        {
+            IntNode last = SquareAndInsert(this.Sentinal.Next);
+            IntNode n = new IntNode(x, null);
+            last.Next = n;
+        }
+
+    private IntNode SquareAndInsert(IntNode p) {
+        if (p.Next == null) {
+            IntNode n = new IntNode(p.Item * p.Item, null);
+            p.Next = n;
+            return p.Next;
+        }
+
+        IntNode n1 = new IntNode(p.Item * p.Item, p.Next);
+        p.Next = n1;
+        return SquareAndInsert(n1.Next);
+    }
     }
 }
