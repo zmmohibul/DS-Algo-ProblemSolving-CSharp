@@ -108,5 +108,20 @@ namespace SLList
             }
             System.Console.WriteLine();
         }
+
+        public void PrintListRecursive() 
+        {
+            PrintListRecursive(Sentinal.Next);
+            System.Console.WriteLine();
+        }
+
+        private void PrintListRecursive(IntNode p) 
+        {
+            if (p == null) {
+                return;
+            }
+            System.Console.WriteLine(p.Item + " ");
+            PrintListRecursive(p.Next);
+        }
     }
 }
