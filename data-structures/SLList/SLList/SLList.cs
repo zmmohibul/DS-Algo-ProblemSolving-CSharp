@@ -89,16 +89,24 @@ namespace SLList
             last.Next = n;
         }
 
-    private IntNode SquareAndInsert(IntNode p) {
-        if (p.Next == null) {
-            IntNode n = new IntNode(p.Item * p.Item, null);
-            p.Next = n;
-            return p.Next;
+        private IntNode SquareAndInsert(IntNode p) {
+            if (p.Next == null) {
+                IntNode n = new IntNode(p.Item * p.Item, null);
+                p.Next = n;
+                return p.Next;
+            }
+
+            IntNode n1 = new IntNode(p.Item * p.Item, p.Next);
+            p.Next = n1;
+            return SquareAndInsert(n1.Next);
         }
 
-        IntNode n1 = new IntNode(p.Item * p.Item, p.Next);
-        p.Next = n1;
-        return SquareAndInsert(n1.Next);
-    }
+        public void PrintList() 
+        {
+            for (IntNode p = Sentinal.Next; p != null; p = p.Next) {
+                System.Console.WriteLine(p.Item + " ");
+            }
+            System.Console.WriteLine();
+        }
     }
 }
