@@ -101,6 +101,18 @@ namespace SLList
             return SquareAndInsert(n1.Next);
         }
 
+        public void addAdjacentIterative() {
+            IntNode p = this.Sentinal.Next;
+            while (p.Next != null) {
+                if (p.Item == p.Next.Item) {
+                    p.Item += p.Next.Item;
+                    p.Next = p.Next.Next;
+                } else {
+                    p = p.Next;
+                }
+            }
+        }
+
         public void PrintList() 
         {
             for (IntNode p = Sentinal.Next; p != null; p = p.Next) {
