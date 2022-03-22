@@ -37,13 +37,6 @@ void AvailableTime(List<List<int>> arr)
 
     System.Console.WriteLine(doubleTime);
 
-    // foreach (var item in availableTimeOfPlayers) {
-    //     PrintDictionary(item);
-    //     System.Console.WriteLine("--------------");
-    //     System.Console.WriteLine();
-
-    // }
-
 }
 
 void PrintDictionary(Dictionary<int, bool> d)
