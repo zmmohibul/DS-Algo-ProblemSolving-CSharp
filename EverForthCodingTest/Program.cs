@@ -29,17 +29,6 @@ void AvailableTime(List<List<int>> arr)
         playerNumber += 1;
     }
 
-    // foreach (var (slot, players) in timeSlots)
-    // {
-    //     System.Console.Write(slot.ToString() + ": ");
-    //     foreach (var player in players)
-    //     {
-    //         System.Console.Write(player + ", ");
-    //     }
-
-    //     System.Console.WriteLine();
-    // }
-
     var doublePlayerMatches = 0;
     foreach (var (slot, player) in timeSlots)
     {
