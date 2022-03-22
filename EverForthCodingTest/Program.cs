@@ -1,7 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using System.Collections.Generic;
 using System.Collections;
-void AvailableTime(List<List<int>> arr) 
+List<int> AvailableTime(List<List<int>> arr) 
 {
     var timeSlots = new Dictionary<Tuple<int, int>, List<int>>();
     var playerNumber = 1;
@@ -39,17 +39,7 @@ void AvailableTime(List<List<int>> arr)
         }
     }
 
-    System.Console.WriteLine("Number of double matches: " + doublePlayerMatches);
-    foreach (var (slot, players) in timeSlots)
-    {
-        System.Console.Write(slot.ToString() + ": ");
-        foreach (var player in players)
-        {
-            System.Console.Write(player + ", ");
-        }
 
-        System.Console.WriteLine();
-    }
 
     var singlePlayerMatches = 0;
     foreach (var (slot, player) in timeSlots)
@@ -71,7 +61,11 @@ void AvailableTime(List<List<int>> arr)
 
         System.Console.WriteLine();
     }
-
+    
+    var output = new List<int>();
+    output.Add(singlePlayerMatches);
+    output.Add(doublePlayerMatches);
+    return output;
     System.Console.WriteLine("hello");
 }
 
