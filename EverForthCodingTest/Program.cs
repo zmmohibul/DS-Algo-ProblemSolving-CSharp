@@ -50,32 +50,14 @@ List<int> AvailableTime(List<List<int>> arr)
             player.RemoveRange(0, 2);
         }
     }
-    System.Console.WriteLine("Number of single matches: " + singlePlayerMatches);
-    foreach (var (slot, players) in timeSlots)
-    {
-        System.Console.Write(slot.ToString() + ": ");
-        foreach (var player in players)
-        {
-            System.Console.Write(player + ", ");
-        }
-
-        System.Console.WriteLine();
-    }
     
     var output = new List<int>();
     output.Add(singlePlayerMatches);
     output.Add(doublePlayerMatches);
     return output;
-    System.Console.WriteLine("hello");
 }
 
 
-// void PrintDictionary(Dictionary<int, bool> d)
-// {
-//     foreach(var (key, value) in d) {
-//         System.Console.WriteLine(key + ": " + value);
-//     }
-// }
 Console.WriteLine("Hello, World!");
 var inp = new List<List<int>>()
 {
@@ -99,5 +81,7 @@ var inp2 = new List<List<int>>()
 
 };
 
-AvailableTime(inp);
-AvailableTime(inp2);
+var result = AvailableTime(inp2);
+result = AvailableTime(inp);
+
+System.Console.WriteLine($"[{result[0]}, {result[1]}]");
