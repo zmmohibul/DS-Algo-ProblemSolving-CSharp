@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Collections;
 List<int> AvailableTime(List<List<int>> arr) 
 {
+    const int SINGLE_MATCH_PLAYER_COUNT = 2;
+    const int DOUBLE_MATCH_PLAYER_COUNT = 4;
+
     var timeSlots = new Dictionary<Tuple<int, int>, List<int>>();
     var playerNumber = 1;
     foreach(var item in arr) 
@@ -29,31 +32,31 @@ List<int> AvailableTime(List<List<int>> arr)
         playerNumber += 1;
     }
 
-    var doublePlayerMatches = 0;
+    var doublePlayerMatcheHours = 0;
     foreach (var (slot, player) in timeSlots)
     {
-        if (player.Count >= 4)
+        if (player.Count >= DOUBLE_MATCH_PLAYER_COUNT)
         {
-            doublePlayerMatches += 1;
+            doublePlayerMatcheHours += 1;
             player.RemoveRange(0, 4);
         }
     }
 
 
 
-    var singlePlayerMatches = 0;
+    var singlePlayerMatchesHours = 0;
     foreach (var (slot, player) in timeSlots)
     {
-        if (player.Count >= 2)
+        if (player.Count >= SINGLE_MATCH_PLAYER_COUNT)
         {
-            singlePlayerMatches += 1;
+            singlePlayerMatchesHours += 1;
             player.RemoveRange(0, 2);
         }
     }
     
     var output = new List<int>();
-    output.Add(singlePlayerMatches);
-    output.Add(doublePlayerMatches);
+    output.Add(singlePlayerMatchesHours);
+    output.Add(doublePlayerMatcheHours);
     return output;
 }
 
@@ -105,4 +108,16 @@ var inp3 = new List<List<int>>()
 
 
 result = AvailableTime(inp3);
+System.Console.WriteLine($"[{result[0]}, {result[1]}]");
+
+var inp4 = new List<List<int>>()
+{
+    new List<int> {9,10},
+    new List<int> {9,12},
+    new List<int> {13,15},
+    new List<int> {10,18}
+};
+
+
+result = AvailableTime(inp4);
 System.Console.WriteLine($"[{result[0]}, {result[1]}]");
