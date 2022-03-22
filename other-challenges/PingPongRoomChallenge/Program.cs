@@ -1,6 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
-using System.Collections.Generic;
-using System.Collections;
+﻿using System.Collections.Generic;
+
 List<int> AvailableTime(List<List<int>> arr) 
 {
     const int SINGLE_MATCH_PLAYER_COUNT = 2;
@@ -32,31 +31,31 @@ List<int> AvailableTime(List<List<int>> arr)
         playerNumber += 1;
     }
 
-    var doublePlayerMatcheHours = 0;
+    var doublePlayerMatchHours = 0;
     foreach (var (slot, player) in timeSlots)
     {
         if (player.Count >= DOUBLE_MATCH_PLAYER_COUNT)
         {
-            doublePlayerMatcheHours += 1;
+            doublePlayerMatchHours += 1;
             player.RemoveRange(0, 4);
         }
     }
 
 
 
-    var singlePlayerMatchesHours = 0;
+    var singlePlayerMatchHours = 0;
     foreach (var (slot, player) in timeSlots)
     {
         if (player.Count >= SINGLE_MATCH_PLAYER_COUNT)
         {
-            singlePlayerMatchesHours += 1;
+            singlePlayerMatchHours += 1;
             player.RemoveRange(0, 2);
         }
     }
     
     var output = new List<int>();
-    output.Add(singlePlayerMatchesHours);
-    output.Add(doublePlayerMatcheHours);
+    output.Add(singlePlayerMatchHours);
+    output.Add(doublePlayerMatchHours);
     return output;
 }
 
