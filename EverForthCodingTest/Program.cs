@@ -58,7 +58,6 @@ List<int> AvailableTime(List<List<int>> arr)
 }
 
 
-Console.WriteLine("Hello, World!");
 var inp = new List<List<int>>()
 {
     new List<int> {9, 12},
@@ -66,6 +65,10 @@ var inp = new List<List<int>>()
     new List<int> {9, 12},
     new List<int> {10, 13},
 };
+
+var result = AvailableTime(inp);
+System.Console.WriteLine($"[{result[0]}, {result[1]}]");
+
 
 
 var inp2 = new List<List<int>>()
@@ -81,7 +84,25 @@ var inp2 = new List<List<int>>()
 
 };
 
-var result = AvailableTime(inp2);
-result = AvailableTime(inp);
 
+result = AvailableTime(inp2);
+System.Console.WriteLine($"[{result[0]}, {result[1]}]");
+
+
+
+var inp3 = new List<List<int>>()
+{
+    new List<int> {9,10},
+    new List<int> {9,12},
+    new List<int> {14,15},
+    new List<int> {16,18},
+    new List<int> {14,18},
+    new List<int> {10,13},
+    new List<int> {15,18},
+    new List<int> {10,14},
+    new List<int> {9,13},
+};
+
+
+result = AvailableTime(inp3);
 System.Console.WriteLine($"[{result[0]}, {result[1]}]");
