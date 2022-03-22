@@ -83,13 +83,13 @@ void AvailableTime(List<List<int>> arr)
 //     }
 // }
 Console.WriteLine("Hello, World!");
-// var inp = new List<List<int>>()
-// {
-//     new List<int> {9, 12},
-//     new List<int> {9, 12},
-//     new List<int> {9, 12},
-//     new List<int> {10, 13},
-// };
+var inp = new List<List<int>>()
+{
+    new List<int> {9, 12},
+    new List<int> {9, 12},
+    new List<int> {9, 12},
+    new List<int> {10, 13},
+};
 
 
 var inp2 = new List<List<int>>()
@@ -105,5 +105,5 @@ var inp2 = new List<List<int>>()
 
 };
 
-// AvailableTime(inp);
+AvailableTime(inp);
 AvailableTime(inp2);
