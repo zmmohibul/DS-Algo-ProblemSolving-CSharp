@@ -118,25 +118,3 @@ var inp2 = new List<List<int>>()
 
 // AvailableTime(inp);
 AvailableTime(inp2);
-
-var t1 = new Tuple<int, int>(10, 11);
-var t2 = new Tuple<int, int>(10, 12);
-
-System.Console.WriteLine(t1.ToString());
-System.Console.WriteLine(t2.ToString());
-System.Console.WriteLine(t1.ToString().Equals(t2.ToString()));
-
-var d = new Dictionary<Tuple<int, int>, bool>();
-d[new Tuple<int, int>(9, 10)] = true;
-d[new Tuple<int, int>(10, 11)] = true;
-d[new Tuple<int, int>(11, 12)] = true;
-d[new Tuple<int, int>(13, 14)] = true;
-d.ContainsKey(new Tuple<int, int>(11, 12));
-
-var l1 = new List<int> {1, 2, 3, 4, 5, 6, 7};
-var l2 = new List<int> {1, 2, 3, 4, 5, 6, 7};
-
-l1.RemoveRange(0, 4);
-l1.ForEach(System.Console.WriteLine);
-
-
