@@ -1,16 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 void AvailableTime(List<List<int>> arr) 
 {
-    // var pd = new Dictionary<int, bool>();
-    // var ar = arr[0];
-    // var c = ar[1] - ar[0];
-    // var s = ar[0];
-
-    // for (int i = 0; i < c + 1; i++) {
-    //     pd[s] = true;
-    //     s += 1;
-    // }
-
     var availableTimeOfPlayers = new List<Dictionary<int, bool>>();
 
     foreach (var item in arr) {
@@ -23,15 +13,36 @@ void AvailableTime(List<List<int>> arr)
             playerTimeAvailability[time] = true;
             time += 1;
         }
+
         availableTimeOfPlayers.Add(playerTimeAvailability);
     }
 
-    foreach (var item in availableTimeOfPlayers) {
-        PrintDictionary(item);
-        System.Console.WriteLine("--------------");
-        System.Console.WriteLine();
+    var doubleTime = 0;
 
+    var playerOneTimeAvailability = availableTimeOfPlayers[0].Keys.ToArray();
+    for (int i = 0; i < playerOneTimeAvailability.Length - 1; i++) {
+        var b = true;
+        
+        foreach (var item in availableTimeOfPlayers) {
+
+            if (!(item.ContainsKey(playerOneTimeAvailability[i]) && item.ContainsKey(playerOneTimeAvailability[i + 1]))) {
+                b = false;
+            }
+        }
+
+        if (b) {
+            doubleTime += 1;
+        }
     }
+
+    System.Console.WriteLine(doubleTime);
+
+    // foreach (var item in availableTimeOfPlayers) {
+    //     PrintDictionary(item);
+    //     System.Console.WriteLine("--------------");
+    //     System.Console.WriteLine();
+
+    // }
 
 }
 
@@ -50,4 +61,20 @@ var inp = new List<List<int>>()
     new List<int> {10, 13},
 };
 
+
+var inp2 = new List<List<int>>()
+{
+    new List<int> {9, 14},
+    new List<int> {15, 17},
+    new List<int> {12, 13},
+    new List<int> {16, 18},
+    new List<int> {10, 15},
+    new List<int> {14, 16},
+    new List<int> {9, 13},
+    new List<int> {9, 15},
+
+};
+
 AvailableTime(inp);
+AvailableTime(inp2);
+
