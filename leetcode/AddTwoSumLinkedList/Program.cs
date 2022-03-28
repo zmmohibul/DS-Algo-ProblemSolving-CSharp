@@ -82,14 +82,11 @@
 //     return l1Int;
 // }
 
-ListNode x = new ListNode(8);
-x.next = new ListNode(6);
-x.next.next = new ListNode(7);
 
-ListNode y = new ListNode(1);
-y.next = new ListNode(4);
-y.next.next = new ListNode(5);
 
+
+ListNode x = BuildListFromArr(new int[] {8, 6, 7, 2, 1, 4, 4});
+ListNode y = BuildListFromArr(new int[] {1, 4, 5, 7, 7, 8, 9, 2, 7});
 var r = AddTwoNumbers(x, y);
 r.Print();
 
@@ -99,9 +96,12 @@ ListNode AddTwoNumbers(ListNode l1, ListNode l2) {
 
     ListNode r = new ListNode();
     ListNode rPtr = r;
+
+    // ListNode x = null;
+    // ListNode y = x;
     var rem = 0;
     var carry = 0;
-    while ((l1Ptr != null) || (l2Ptr != null)) {
+    while ((l1Ptr != null) && (l2Ptr != null)) {
         var sum = l1Ptr.val + l2Ptr.val + carry;
         rem = sum % 10;
         carry = sum / 10;
@@ -114,9 +114,62 @@ ListNode AddTwoNumbers(ListNode l1, ListNode l2) {
         l2Ptr = l2Ptr.next;
     }
 
-    rPtr.val = carry;
+    // rPtr.val = carry;
+
+    bool hasAddedCarry = false;
+    if (l1Ptr != null) {
+        while (l1Ptr != null) {
+            var v = l1Ptr.val;
+            if (!hasAddedCarry) {
+                v += carry;
+                hasAddedCarry = true;
+            }
+            rPtr.val = v;
+            rPtr.next = new ListNode();
+            rPtr = rPtr.next;
+            l1Ptr = l1Ptr.next;
+        }
+    }
+
+    if (l2Ptr != null) {
+        while (l2Ptr != null) {
+            var v = l2Ptr.val;
+            if (!hasAddedCarry) {
+                v += carry;
+                hasAddedCarry = true;
+            }
+            rPtr.val = v;
+            rPtr.next = new ListNode();
+            rPtr = rPtr.next;
+            l2Ptr = l2Ptr.next;
+        }
+    }
+
+
+
+    var r2Ptr = r;
+    while(r2Ptr.next.next != null) {
+        r2Ptr = r2Ptr.next;
+    }
+
+    r2Ptr.next = null;
+
 
     return r;
+}
+
+ListNode BuildListFromArr(int[] arr) {
+    ListNode n = new ListNode();
+    ListNode nPtr = n;
+    for (var i = 0; i < arr.Length; i++) {
+        nPtr.val = arr[i];
+        if (i != arr.Length - 1) {
+            nPtr.next = new ListNode();
+            nPtr = nPtr.next;
+        }
+    }
+
+    return n;
 }
 
 public class ListNode {
