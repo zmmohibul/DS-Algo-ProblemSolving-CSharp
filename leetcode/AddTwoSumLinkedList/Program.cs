@@ -11,86 +11,48 @@ n2.next = new ListNode(2);
 n2.next.next = new ListNode(1);
 n2.Print();
 
-AddTwoNumbers(n, n2);
+// ListNode r = AddTwoNumbers(n, n2);
+// r.Print();
+
+// AddTwoNumbers(new ListNode(), new ListNode());
+
+ListNode sl = new ListNode(9);
+System.Console.WriteLine(GetInt(sl));
+
+ListNode sl2 = new ListNode(1);
+sl2.next = new ListNode(9);
+sl2.next.next = new ListNode(9);
+sl2.next.next.next = new ListNode(9);
+sl2.next.next.next.next = new ListNode(9);
+sl2.next.next.next.next.next = new ListNode(9);
+sl2.next.next.next.next.next.next = new ListNode(9);
+sl2.next.next.next.next.next.next.next = new ListNode(9);
+sl2.next.next.next.next.next.next.next.next = new ListNode(9);
+sl2.next.next.next.next.next.next.next.next.next = new ListNode(9);
+sl2.Print();
+System.Console.WriteLine(GetInt(sl2));
+
+ListNode r2 = AddTwoNumbers(sl, sl2);
+r2.Print();
+
+// sl.Print();
 
 
-void AddTwoNumbers(ListNode l1, ListNode l2) {
-    // reverse l1 (1 -> 5 -> 8) to get l1Reversed(8 -> 5 -> 1)
-    
-    // now l1Reversed has the number in right order 
-    // take an integer l1Int 
-    // traverse through l1Reversed and add the int to
-    // l1Int then multiply by 10
+ListNode AddTwoNumbers(ListNode l1, ListNode l2) {
+    long l1Int = GetInt(l1);
+    long l2Int = GetInt(l2);
 
-
-    // repeat same process for l2
-
-    // add l1Int & l2Int to get resultInt
-
-    // make an list of resultInt
-
-
-
-    // -------------------------
-    // traverse through l1 and add each node's value to a List
-    // List<int> l1List = new List<int>();
-    // for (ListNode node = l1; node != null; node = node.next) {
-    //     l1List.Add(node.val);
-    // }
-
-    // for (int i = l1List.Count - 1; i != -1; i--) {
-    //     l1Int += l1List[i];
-    //     if (i != 0) {
-    //         l1Int *= 10;
-    //     }
-    // }
-
-    int l1Int = GetInt(l1);
-    int l2Int = GetInt(l2);
-
-
-    System.Console.WriteLine(l1Int);
-    System.Console.WriteLine(l2Int);
-
-    
-
-
-
-    // traverse the list in reverse and form l1Int by add List[i] and then multipl by 10
-
-    // repeat same process for l2
-
-
-    // add l1Int and l2Int to get resultInt
-    int resultInt = l1Int + l2Int;
-    System.Console.WriteLine(resultInt);
-
-    // use mod and divide logic to form reverse resultIntReverseList
+    long resultInt = l1Int + l2Int;
 
     List<int> resultIntReverseList = new List<int>();
     while (resultInt != 0) {
-        resultIntReverseList.Add(resultInt % 10);
+        int rem = (int) (resultInt % 10);
+        resultIntReverseList.Add(rem);
         resultInt /= 10;
     }
 
-    foreach (var item in resultIntReverseList) {
-        Console.Write($"{item}, ");
-        
-    }
-
-    System.Console.WriteLine();
-
-
-    // build the result to return from resultIntReverseList
-
     ListNode result = new ListNode();
     ListNode ptr = result;
-
-    // foreach (var item in resultIntReverseList) {
-    //     ptr.val = item;
-    //     ptr.next = new ListNode();
-    //     ptr = ptr.next;
-    // }
 
     for (int i = 0; i < resultIntReverseList.Count; i++) {
         ptr.val = resultIntReverseList[i];
@@ -100,19 +62,16 @@ void AddTwoNumbers(ListNode l1, ListNode l2) {
         ptr = ptr.next;
     }
 
-    result.Print();
-
-
-    // return result;
+    return result;
 }
 
-int GetInt(ListNode l1) {
+long GetInt(ListNode l1) {
     List<int> l1List = new List<int>();
     for (ListNode node = l1; node != null; node = node.next) {
         l1List.Add(node.val);
     }
 
-    int l1Int = 0;
+    long l1Int = 0;
     for (int i = l1List.Count - 1; i != -1; i--) {
         l1Int += l1List[i];
         if (i != 0) {
