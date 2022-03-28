@@ -90,12 +90,30 @@ ListNode y = BuildListFromArr(new int[] {1, 4, 5, 7, 7, 8, 9, 2, 7});
 var r = AddTwoNumbers(x, y);
 r.Print();
 
+ListNode x1 = BuildListFromArr(new int[] {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1});
+ListNode y1 = BuildListFromArr(new int[] {5,6,4});
+r = AddTwoNumbers(x1, y1);
+r.Print();
+
+
+ListNode x2 = BuildListFromArr(new int[] {1,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9});
+ListNode y2 = BuildListFromArr(new int[] {9});
+r = AddTwoNumbers(x2, y2);
+r.Print();
+
+ListNode x3 = BuildListFromArr(new int[] {1,9,9});
+ListNode y3 = BuildListFromArr(new int[] {9});
+r = AddTwoNumbers(x3, y3);
+r.Print();
+
 ListNode AddTwoNumbers(ListNode l1, ListNode l2) {
     ListNode l1Ptr = l1;
     ListNode l2Ptr = l2;
 
     ListNode r = new ListNode();
     ListNode rPtr = r;
+
+    bool isFirstNode = true;
 
     // ListNode x = null;
     // ListNode y = x;
@@ -106,9 +124,16 @@ ListNode AddTwoNumbers(ListNode l1, ListNode l2) {
         rem = sum % 10;
         carry = sum / 10;
 
-        rPtr.val = rem;
-        rPtr.next = new ListNode();
-        rPtr = rPtr.next;
+        if (isFirstNode) {
+            rPtr.val = rem;
+            isFirstNode = false;
+        } else {
+            rPtr.next = new ListNode();
+            rPtr = rPtr.next;
+            rPtr.val = rem;
+        }
+
+        
 
         l1Ptr = l1Ptr.next;
         l2Ptr = l2Ptr.next;
@@ -116,17 +141,18 @@ ListNode AddTwoNumbers(ListNode l1, ListNode l2) {
 
     // rPtr.val = carry;
 
-    bool hasAddedCarry = false;
     if (l1Ptr != null) {
         while (l1Ptr != null) {
             var v = l1Ptr.val;
-            if (!hasAddedCarry) {
-                v += carry;
-                hasAddedCarry = true;
-            }
-            rPtr.val = v;
+            v += carry;
+
+            rem = v % 10;
+            carry = v / 10;
+
             rPtr.next = new ListNode();
             rPtr = rPtr.next;
+            rPtr.val = rem;
+
             l1Ptr = l1Ptr.next;
         }
     }
@@ -134,25 +160,34 @@ ListNode AddTwoNumbers(ListNode l1, ListNode l2) {
     if (l2Ptr != null) {
         while (l2Ptr != null) {
             var v = l2Ptr.val;
-            if (!hasAddedCarry) {
-                v += carry;
-                hasAddedCarry = true;
-            }
-            rPtr.val = v;
+            v += carry;
+
+            rem = v % 10;
+            carry = v / 10;
+
             rPtr.next = new ListNode();
             rPtr = rPtr.next;
+            rPtr.val = rem;
+            
             l2Ptr = l2Ptr.next;
         }
     }
 
 
 
-    var r2Ptr = r;
-    while(r2Ptr.next.next != null) {
-        r2Ptr = r2Ptr.next;
-    }
+    // var r2Ptr = r;
+    // while(r2Ptr.next.next != null) {
+    //     r2Ptr = r2Ptr.next;
+    // }
 
-    r2Ptr.next = null;
+    // r2Ptr.next = null;
+
+    if (carry > 0) {
+        rPtr.next = new ListNode();
+        rPtr = rPtr.next;
+        rPtr.val = carry;
+
+    }
 
 
     return r;
