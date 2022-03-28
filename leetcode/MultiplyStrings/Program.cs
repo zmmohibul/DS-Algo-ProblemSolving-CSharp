@@ -3,10 +3,15 @@ using System.Text;
 
 Console.WriteLine("Hello, World!");
 
-Multiply("247", "319");
+System.Console.WriteLine(Multiply("247", "319"));
+System.Console.WriteLine(Multiply("5521347", "0"));
+
 // System.Console.WriteLine(GetProdOfCharAndString('7', "82346"));
 
 string Multiply(string num1, string num2) {
+    if (num1.Equals("0") || num2.Equals("0")) {
+        return "0";
+    }
     List<string> partialProducts = new List<string>();
     int maxPartialProductLength = 0;
     int extraZeroes = 0;
@@ -47,15 +52,7 @@ string Multiply(string num1, string num2) {
         sb.Insert(0, carry);
     }
 
-    foreach (var item in partialProducts) {
-        System.Console.WriteLine(item);
-    }
-
-    System.Console.WriteLine(sb.ToString());
-
-
-
-    return string.Empty;        
+    return sb.ToString();        
 }
 
 string GetProdOfCharAndString(char c, string s, int extraZeroToAdd) {
