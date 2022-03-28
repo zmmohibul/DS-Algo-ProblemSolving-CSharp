@@ -3,27 +3,21 @@ using System.Text;
 
 Console.WriteLine("Hello, World!");
 
-// Multiply("121", "132");
-System.Console.WriteLine(GetProdOfCharAndString('7', "82346"));
+Multiply("121", "132");
+// System.Console.WriteLine(GetProdOfCharAndString('7', "82346"));
 
 string Multiply(string num1, string num2) {
+    List<string> partialProducts = new List<string>();
 
-    int maxLength = num1.Length > num2.Length ? num1.Length : num2.Length;
-    int i, j;
-    int num1Length = num1.Length;
-    int num2Length = num2.Length;
-
-    int carry = 0;
-    int rem = 0;
-    StringBuilder sb = new StringBuilder();
-    for (i = num1Length - 1, j = num2Length - 1; i >= 0 && j >= 0; i--, j--) {
-        int product = (num1[i] - '0') * (num2[j] - '0')  + carry;
-        rem = product % 10;
-        carry = product / 10;
-        sb.Insert(0, rem.ToString());
+    for (int i = num2.Length - 1; i >= 0; i--) {
+        partialProducts.Add(GetProdOfCharAndString(num2[i], num1));
     }
 
-    System.Console.WriteLine(sb.ToString());
+    foreach (var item in partialProducts) {
+        System.Console.WriteLine(item);
+    }
+
+    
 
     return string.Empty;        
 }
