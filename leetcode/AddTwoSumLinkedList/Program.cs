@@ -173,15 +173,6 @@ ListNode AddTwoNumbers(ListNode l1, ListNode l2) {
         }
     }
 
-
-
-    // var r2Ptr = r;
-    // while(r2Ptr.next.next != null) {
-    //     r2Ptr = r2Ptr.next;
-    // }
-
-    // r2Ptr.next = null;
-
     if (carry > 0) {
         rPtr.next = new ListNode();
         rPtr = rPtr.next;
