@@ -1,28 +1,29 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 // var s = "hellother";
-var s = "wednesdayin";
+var s = "wednesdayint";
 
-var substringIndexDict = new Dictionary<Tuple<int, int>, int>();
+var substringIndexDict = new Dictionary<int, Tuple<int, int>>();
 var containsDict = new Dictionary<char, int>();
 
 int i, j;
 int maxLength = 0;
 bool ifirst = true;
+int length = 0;
 for (i = 0, j = 0; j < s.Length; j++) {
     if (!containsDict.ContainsKey(s[j])) {
         containsDict[s[j]] = j;
     }  else if (containsDict[s[j]] > i && !ifirst) {
         containsDict[s[j]] = j;
     } else {
-        int length = j - i;
-        substringIndexDict[new Tuple<int, int>(i, j - 1)] = length;
+        length = j - i;
+        substringIndexDict[length] = new Tuple<int, int>(i, j - 1);
         if (length > maxLength) {
             maxLength = length;
         }
         i = containsDict[s[j]] + 1;
         containsDict[s[j]] = j;
-        maxLength = 0;
+        // maxLength = 0;
         ifirst = false;
     }
 
@@ -36,14 +37,21 @@ for (i = 0, j = 0; j < s.Length; j++) {
 //     }
 // }
 
-// substringIndexDict[new Tuple<int, int>(0, i - 1)] = i;
+// substringIndexDict[length] = new Tuple<int, int>(0, i - 1);
 
 // System.Console.WriteLine(i);
 
 
-substringIndexDict[new Tuple<int, int>(i, j - 1)] = i;
+length = j - i;
+substringIndexDict[length] = new Tuple<int, int>(i, j - 1);
+if (length > maxLength) {
+    maxLength = length;
+}
 
 foreach (var (key, val) in substringIndexDict) {
     System.Console.WriteLine($"{key} : {val}");
 }
-Console.WriteLine("Hello, World!");
+
+var t = substringIndexDict[maxLength];
+System.Console.WriteLine(t);
+System.Console.WriteLine(s.Substring(t.Item1, t.Item2 - t.Item1 + 1));
