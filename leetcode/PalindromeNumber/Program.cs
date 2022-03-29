@@ -8,12 +8,9 @@ bool Reverse(int x) {
     int result = 0;
     int ox = x;
     while (x > 0) {
-        int val = x % 10;
-        result += val;
+        result *= 10;
+        result += x % 10;
         x /= 10;
-        if (x > 0) {
-            result *= 10;
-        }
     }
 
     System.Console.WriteLine(result);
