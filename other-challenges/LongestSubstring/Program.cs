@@ -1,7 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-// var s = "hellother";
-var s = "wednesdayint";
+﻿var s = "wednesdayint";
 
 var substringIndexDict = new Dictionary<int, Tuple<int, int>>();
 var containsDict = new Dictionary<char, int>();
@@ -23,23 +20,10 @@ for (i = 0, j = 0; j < s.Length; j++) {
         }
         i = containsDict[s[j]] + 1;
         containsDict[s[j]] = j;
-        // maxLength = 0;
         ifirst = false;
     }
 
 }
-
-// for (i = 0; i < s.Length; i++) {
-//     if (!containsDict.ContainsKey(s[i])) {
-//         containsDict[s[i]] = i;
-//     } else {
-//         break;
-//     }
-// }
-
-// substringIndexDict[length] = new Tuple<int, int>(0, i - 1);
-
-// System.Console.WriteLine(i);
 
 
 length = j - i;
