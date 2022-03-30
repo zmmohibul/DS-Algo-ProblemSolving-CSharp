@@ -45,12 +45,14 @@ if (result == null) {
 }
 
 int[] TwoSums(int[] nums, int target) {
+    var d = new Dictionary<int, int>();
+
     for (int i = 0; i < nums.Length; i++) {
-        int numberToFind = target - nums[i];
-        for (int j = i + 1; j < nums.Length; j++) {
-            if (nums[j] == numberToFind) {
-                return new int[] {i, j};
-            }
+        if (d.ContainsKey(nums[i])) {
+            return new int[] {d[nums[i]], i};
+        } else {
+            int nuumberToFind = target - nums[i];
+            d[nuumberToFind] = i;
         }
     }
 
