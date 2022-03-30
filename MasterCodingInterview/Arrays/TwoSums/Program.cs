@@ -45,27 +45,11 @@ if (result == null) {
 }
 
 int[] TwoSums(int[] nums, int target) {
-    if (nums.Length < 2) {
-        return null;
-    }
-
-    if (nums.Length == 2) {
-        if (nums[0] + nums[1] == target) {
-            return new int[] {0, 1};
-        } else {
-            return null;
-        }
-    }
-
-    int[] result = new int[2];
-
     for (int i = 0; i < nums.Length; i++) {
         int numberToFind = target - nums[i];
         for (int j = i + 1; j < nums.Length; j++) {
             if (nums[j] == numberToFind) {
-                result[0] = i;
-                result[1] = j;
-                return result;
+                return new int[] {i, j};
             }
         }
     }
