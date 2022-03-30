@@ -1,5 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
-var nums = new int[] {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+var nums = new int[] {-2, 1, -3, 4, -1};
 System.Console.WriteLine(MaxSubArray(nums));
 
 
