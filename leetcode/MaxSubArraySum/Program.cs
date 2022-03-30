@@ -1,9 +1,17 @@
 ﻿// See https://aka.ms/new-console-template for more information
 var nums = new int[] {-2, 1, -3, 4, -1, 2, 1, -5, 4};
-MaxSubArray(nums);
+System.Console.WriteLine(MaxSubArray(nums));
+
+
+nums = new int[] {5,4,-1,7,8};
+System.Console.WriteLine(MaxSubArray(nums));
+
+
+nums = new int[] {5};
+System.Console.WriteLine(MaxSubArray(nums));
 
 int MaxSubArray(int[] nums) {
-    int result = 0;
+    // int result = 0;
     var d = new Dictionary<Tuple<int, int>, int>();
 
     for (int i = 0; i < nums.Length; i++) {
@@ -19,20 +27,20 @@ int MaxSubArray(int[] nums) {
         }
     }
 
-    int max = 0;
-    Tuple<int, int> t1 = new Tuple<int, int>(0, 0);
+    int max = nums[0];
+    // Tuple<int, int> t1 = new Tuple<int, int>(0, 0);
     
 
     foreach (var (k, v) in d) {
-        System.Console.WriteLine($"[{k}: {v}],");
+        // System.Console.WriteLine($"[{k}: {v}],");
         if (v > max) {
             max = v;
-            t1 = k;
+            // t1 = k;
         }
     }
 
-    System.Console.WriteLine(max);
-    System.Console.WriteLine(t1);
+    // System.Console.WriteLine(max);
+    // System.Console.WriteLine(t1);
 
-    return result;
+    return max;
 }
