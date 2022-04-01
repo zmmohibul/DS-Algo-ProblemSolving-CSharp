@@ -11,6 +11,17 @@ Merge(nums1, 4, nums2, nums2.Length);
 // Merge(nums1, 3, nums2, nums2.Length);
 
 
+nums1 = new int[] {0,0,0};
+nums2 = new int[] {2,5,6};
+
+Merge(nums1, 0, nums2, nums2.Length);
+
+nums1 = new int[] {0};
+nums2 = new int[] {2};
+
+Merge(nums1, 0, nums2, nums2.Length);
+
+
 void Merge(int[] nums1, int m, int[] nums2, int n) {
 
     // int[] result = new int[nums1.Length];
@@ -50,21 +61,45 @@ void Merge(int[] nums1, int m, int[] nums2, int n) {
 
     // System.Console.WriteLine();
 
-
-
     int i = m - 1;
+    if (m == 0) {
+        i = 0;
+    }
     int j = n - 1;
     int c = m + n - 1;
-    while (i >= 0 && j >= 0) {
-        if (nums1[i] > nums2[j]) {
+    // while (i >= 0 && j >= 0) {
+    //     if (nums1[i] > nums2[j]) {
+    //         nums1[c] = nums1[i];
+    //         c -= 1;
+    //         i -= 1;
+    //     } else {
+    //         nums1[c] = nums2[j];
+    //         c -= 1;
+    //         j -= 1;
+    //     }
+    // }
+
+    while (c >= 0) {
+        if (i >= 0 && j >= 0) {
+            if (nums1[i] > nums2[j]) {
+                nums1[c] = nums1[i];
+                c -= 1;
+                i -= 1;
+            } else {
+                nums1[c] = nums2[j];
+                c -= 1;
+                j -= 1;
+            }
+        } else if (i >= 0) {
             nums1[c] = nums1[i];
             c -= 1;
             i -= 1;
-        } else {
-            nums1[c] = nums2[j];
+        } else if (j >= 0) {
+            nums1[c] = nums1[j];
             c -= 1;
             j -= 1;
         }
+        
     }
     foreach (var item in nums1) {
         System.Console.Write(item + ", ");
@@ -75,15 +110,12 @@ void Merge(int[] nums1, int m, int[] nums2, int n) {
 // Fails
 
 // Input
-// [0]
-// 0
+// [2,0]
+// 1
 // [1]
 // 1
-
-// Output 
-// [0]
-
-// Expected 
-// [1]
-        
+// Output
+// [2,2]
+// Expected
+// [1,2]
 }
