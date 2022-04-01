@@ -71,5 +71,19 @@ void Merge(int[] nums1, int m, int[] nums2, int n) {
     }
 
     System.Console.WriteLine();
+
+// Fails
+
+// Input
+// [0]
+// 0
+// [1]
+// 1
+
+// Output 
+// [0]
+
+// Expected 
+// [1]
         
 }
