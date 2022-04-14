@@ -31,5 +31,23 @@ int MostWordsFound(string[] sentences)
     return maxWord;
 }
 
+
+int MostWordsFound2(string[] sentences) 
+{
+    var maxWord = 0;
+
+    foreach (var sentence in sentences) 
+    {
+        var words = sentence.Split(' ');
+
+        if (words.Length > maxWord)
+        {
+            maxWord = words.Length;
+        }
+    }
+
+    return maxWord;
+}
+
 var sentences = new string[] {"alice and bob love leetcode", "i think so too", "this is great thanks very much"};
-System.Console.WriteLine(MostWordsFound(sentences));
+System.Console.WriteLine(MostWordsFound2(sentences));
