@@ -20,50 +20,56 @@ int MinTimeToVisitAllPoints(List<List<int>> points)
     {
         var point2 = points[i];
 
-
-
-        while (point1[0] != point2[0] || point1[1] != point2[1])
+        if (point2[0] > point1[0] || point2[1] > point1[1])
         {
-            if (point2[0] > point1[0] && point2[1] > point1[1])
+            while (point1[0] != point2[0] || point1[1] != point2[1])
             {
-                point1[0] += 1;
-                point1[1] += 1;
-                time += 1;
-                continue;
+                if (point2[0] > point1[0] && point2[1] > point1[1])
+                {
+                    point1[0] += 1;
+                    point1[1] += 1;
+                    time += 1;
+                    continue;
+                }
+
+                if (point2[0] > point1[0])
+                {
+                    point1[0] += 1;
+                    time += 1;
+                }
+
+                if (point2[1] > point1[1])
+                {
+                    point1[1] += 1;
+                    time += 1;
+                }
+            }
+        }
+        else 
+        {
+            while (point1[0] != point2[0] || point1[1] != point2[1])
+            {
+                if (point2[0] < point1[0] && point2[1] < point1[1])
+                {
+                    point1[0] -= 1;
+                    point1[1] -= 1;
+                    time += 1;
+                    continue;
+                }
+
+                if (point2[0] < point1[0])
+                {
+                    point1[0] -= 1;
+                    time += 1;
+                }
+
+                if (point2[1] < point1[1])
+                {
+                    point1[1] -= 1;
+                    time += 1;
+                }
             }
 
-            if (point2[0] > point1[0])
-            {
-                point1[0] += 1;
-                time += 1;
-            }
-
-            if (point2[1] > point1[1])
-            {
-                point1[1] += 1;
-                time += 1;
-            }
-
-
-            if (point2[0] < point1[0] && point2[1] < point1[1])
-            {
-                point1[0] -= 1;
-                point1[1] -= 1;
-                time += 1;
-                continue;
-            }
-
-            if (point2[0] < point1[0])
-            {
-                point1[0] -= 1;
-                time += 1;
-            }
-
-            if (point2[1] < point1[1])
-            {
-                point1[1] -= 1;
-                time += 1;
-            }
         }
 
         point1 = point2;
