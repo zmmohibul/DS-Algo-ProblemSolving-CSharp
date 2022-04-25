@@ -12,7 +12,9 @@ namespace MiniatureGit
         
         private static readonly DirectoryInfo MiniatureGit = new DirectoryInfo(Path.Join(PWD.FullName, ".minigit"));
         
-        private static readonly DirectoryInfo Blobs = new DirectoryInfo(Path.Join(MiniatureGit.FullName, "Blobs"));
+        private static readonly DirectoryInfo Blobs = new DirectoryInfo(Path.Join(MiniatureGit.FullName, "blobs"));
+        private static readonly DirectoryInfo Commits = new DirectoryInfo(Path.Join(MiniatureGit.FullName, "commits"));
+
         
         
 
@@ -35,6 +37,24 @@ namespace MiniatureGit
             System.Console.WriteLine(textInFile);
             System.Console.WriteLine(Hash(textInFile));
             await File.WriteAllBytesAsync(Path.Join(Blobs.FullName, Hash(textInFile)), textInFile);
+        }
+
+        public static async Task Commit()
+        {
+            var commit = new Commit();
+            commit.BlobShaMap["rand.txt"] = "blah blah blah";
+            commit.BlobShaMap["rand2.txt"] = "lah lah lah";
+
+            if (!Commits.Exists)
+            {
+                Commits.Create();
+            }
+
+            var json = DataSerializer.GetJson(commit);
+            var jsonByte = UnicodeEncoding.ASCII.GetBytes(json);
+            var jsonHash = Hash(jsonByte);
+            
+            await DataSerializer.Serialize(json, Path.Join(Commits.FullName, jsonHash));
         }
 
         private static string Hash(byte[] input)

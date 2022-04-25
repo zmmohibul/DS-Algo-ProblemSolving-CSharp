@@ -18,6 +18,10 @@ namespace MiniatureGit
                 await Repository.Add(fileToAdd);
                 
             }
+            else if (firstArg.Equals("commit"))
+            {
+                await Repository.Commit();
+            }
             Console.WriteLine("Hello World!");
         }
     }
