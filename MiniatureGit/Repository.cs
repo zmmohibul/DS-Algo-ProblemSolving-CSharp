@@ -8,37 +8,40 @@ namespace MiniatureGit
 {
     public class Repository
     {
-        private static DirectoryInfo PWD = new DirectoryInfo(".");
-        private static DirectoryInfo MINIATURE_GIT = new DirectoryInfo(Path.Join(PWD.FullName, ".minigit"));
-        private static DirectoryInfo BLOBS = new DirectoryInfo(Path.Join(MINIATURE_GIT.FullName, "blobs"));
+        private static readonly DirectoryInfo PWD = new DirectoryInfo(".");
+        
+        private static readonly DirectoryInfo MiniatureGit = new DirectoryInfo(Path.Join(PWD.FullName, ".minigit"));
+        
+        private static readonly DirectoryInfo Blobs = new DirectoryInfo(Path.Join(MiniatureGit.FullName, "Blobs"));
+        
+        
+
         public static void Init()
         {
-            if (MINIATURE_GIT.Exists)
+            if (MiniatureGit.Exists)
             {
                 System.Console.WriteLine("This is already an initialized MinatureGit directory.");
                 System.Environment.Exit(1);
             }
 
             System.Console.WriteLine(PWD.FullName);
-            MINIATURE_GIT.Create();
+            MiniatureGit.Create();
         }
 
         public static async Task Add(string FileName)
         {
-            BLOBS.Create();
+            Blobs.Create();
             byte[] textInFile = await File.ReadAllBytesAsync(Path.Join(PWD.FullName, FileName));
             System.Console.WriteLine(textInFile);
             System.Console.WriteLine(Hash(textInFile));
-            await File.WriteAllBytesAsync(Path.Join(BLOBS.FullName, Hash(textInFile)), textInFile);
+            await File.WriteAllBytesAsync(Path.Join(Blobs.FullName, Hash(textInFile)), textInFile);
         }
-
 
         private static string Hash(byte[] input)
         {
             using var sha1 = SHA1.Create();
             return Convert.ToHexString(sha1.ComputeHash(input));
         }
-
 
     }
 }
