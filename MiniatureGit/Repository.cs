@@ -8,22 +8,19 @@ namespace MiniatureGit
 {
     public class Repository
     {
-        private static readonly DirectoryInfo PWD = new DirectoryInfo(".");
+        public static readonly DirectoryInfo PWD = new DirectoryInfo(".");
         
-        private static readonly DirectoryInfo MiniatureGit = new DirectoryInfo(Path.Join(PWD.FullName, ".minigit"));
+        public static readonly DirectoryInfo MiniatureGit = new DirectoryInfo(Path.Join(PWD.FullName, ".minigit"));
         
-        private static readonly DirectoryInfo Blobs = new DirectoryInfo(Path.Join(MiniatureGit.FullName, "blobs"));
-        private static readonly DirectoryInfo Commits = new DirectoryInfo(Path.Join(MiniatureGit.FullName, "commits"));
-        private static readonly DirectoryInfo Branches = new DirectoryInfo(Path.Join(MiniatureGit.FullName, "branches"));
+        public static readonly DirectoryInfo Blobs = new DirectoryInfo(Path.Join(MiniatureGit.FullName, "blobs"));
+        public static readonly DirectoryInfo Commits = new DirectoryInfo(Path.Join(MiniatureGit.FullName, "commits"));
+        public static readonly DirectoryInfo Branches = new DirectoryInfo(Path.Join(MiniatureGit.FullName, "branches"));
 
-        private static readonly string Head = Path.Join(MiniatureGit.FullName, "HEAD");
-        private static readonly string MasterBranch = Path.Join(Branches.FullName, "master");
-
-
+        public static readonly string Head = Path.Join(MiniatureGit.FullName, "HEAD");
+        public static readonly string MasterBranch = Path.Join(Branches.FullName, "master");
+        public static readonly string StagingAreaFilePath = Path.Join(MiniatureGit.FullName, "StagingArea");
 
         
-        
-
         public static async Task Init()
         {
             if (MiniatureGit.Exists)
@@ -39,7 +36,7 @@ namespace MiniatureGit
 
             var firstcommit = new Commit();
 
-            var firstCommitHash = await Utils.WriteObjectAndGetObjectHashAsync(firstcommit, Commits.FullName);
+            var firstCommitHash = await Utils.WriteObjectAndGetObjectHashAsync<Commit>(firstcommit, Commits.FullName);
 
             await File.WriteAllTextAsync(Head, firstCommitHash);
             await File.WriteAllTextAsync(MasterBranch, firstCommitHash);
@@ -47,36 +44,28 @@ namespace MiniatureGit
 
         public static async Task Add(string FileName)
         {
-            Blobs.Create();
-            byte[] textInFile = await File.ReadAllBytesAsync(Path.Join(PWD.FullName, FileName));
-            System.Console.WriteLine(textInFile);
-            System.Console.WriteLine(Hash(textInFile));
-            await File.WriteAllBytesAsync(Path.Join(Blobs.FullName, Hash(textInFile)), textInFile);
-        }
+            // Blobs.Create();
+            // byte[] textInFile = await File.ReadAllBytesAsync(Path.Join(PWD.FullName, FileName));
+            // await File.WriteAllBytesAsync(Path.Join(Blobs.FullName, Utils.GetSha1(textInFile)), textInFile);
 
-        public static async Task Commit()
-        {
-            var commit = new Commit();
-            commit.BlobShaMap["rand.txt"] = "blah blah blah";
-            commit.BlobShaMap["rand2.txt"] = "lah lah lah";
-
-            if (!Commits.Exists)
+            var fileContent = await File.ReadAllBytesAsync(Path.Join(Repository.PWD.FullName, FileName));
+            var fileContentSha = Utils.GetSha1(fileContent);
+            if (!File.Exists(StagingAreaFilePath))
             {
-                Commits.Create();
+                StagingArea sa = new StagingArea();
+                sa.Add(FileName, fileContentSha);
+                await Utils.WriteObject(sa, StagingAreaFilePath);
+            }
+            else
+            {
+                StagingArea sa = await Utils.ReadObjectAsync<StagingArea>(StagingAreaFilePath);
+                sa.Add(FileName, fileContentSha);
+                await Utils.WriteObject(sa, StagingAreaFilePath);
+                sa.ShowFilesStagedForAddition();
             }
 
-            var json = DataSerializer.GetJson(commit);
-            var jsonByte = UnicodeEncoding.ASCII.GetBytes(json);
-            var jsonHash = Hash(jsonByte);
-            
-            await DataSerializer.Serialize(json, Path.Join(Commits.FullName, jsonHash));
         }
 
-        private static string Hash(byte[] input)
-        {
-            using var sha1 = SHA1.Create();
-            return Convert.ToHexString(sha1.ComputeHash(input));
-        }
 
     }
 }

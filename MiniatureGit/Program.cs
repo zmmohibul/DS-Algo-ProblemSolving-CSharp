@@ -15,14 +15,17 @@ namespace MiniatureGit
             else if (firstArg.Equals("add")) 
             {
                 var fileToAdd = args[1];
+                // await StagingArea.Add(fileToAdd);
+                // foreach (var (key, value) in StagingArea.FilesStagedForAddition)
+                // {
+                //     System.Console.WriteLine($"{key}: {value}");
+                // }
                 await Repository.Add(fileToAdd);
-                
             }
             else if (firstArg.Equals("commit"))
             {
-                await Repository.Commit();
+                // await Repository.Commit();
             }
-            Console.WriteLine("Hello World!");
         }
     }
 }
