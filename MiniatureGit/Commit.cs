@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace MiniatureGit
 {
-    [Serializable]
     public class Commit
     {
         public DateTime CommitedAt { get; } = DateTime.Now;
@@ -17,15 +16,5 @@ namespace MiniatureGit
             Parent = null;
             BlobShaMap = new Dictionary<string, string>();
         }
-        
-        
-        
-        
-
-
-        
-        
-        
-        
     }
 }

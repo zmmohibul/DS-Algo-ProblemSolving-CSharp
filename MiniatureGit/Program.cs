@@ -10,7 +10,7 @@ namespace MiniatureGit
             var firstArg = args[0];
             if (firstArg.Equals("init")) 
             {
-                Repository.Init();
+                await Repository.Init();
             }
             else if (firstArg.Equals("add")) 
             {

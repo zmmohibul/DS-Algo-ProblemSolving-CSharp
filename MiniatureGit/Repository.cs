@@ -14,11 +14,17 @@ namespace MiniatureGit
         
         private static readonly DirectoryInfo Blobs = new DirectoryInfo(Path.Join(MiniatureGit.FullName, "blobs"));
         private static readonly DirectoryInfo Commits = new DirectoryInfo(Path.Join(MiniatureGit.FullName, "commits"));
+        private static readonly DirectoryInfo Branches = new DirectoryInfo(Path.Join(MiniatureGit.FullName, "branches"));
+
+        private static readonly string Head = Path.Join(MiniatureGit.FullName, "HEAD");
+        private static readonly string MasterBranch = Path.Join(Branches.FullName, "master");
+
+
 
         
         
 
-        public static void Init()
+        public static async Task Init()
         {
             if (MiniatureGit.Exists)
             {
@@ -26,8 +32,17 @@ namespace MiniatureGit
                 System.Environment.Exit(1);
             }
 
-            System.Console.WriteLine(PWD.FullName);
             MiniatureGit.Create();
+            Blobs.Create();
+            Commits.Create();
+            Branches.Create();
+
+            var firstcommit = new Commit();
+
+            var firstCommitHash = await Utils.WriteObjectAndGetObjectHashAsync(firstcommit, Commits.FullName);
+
+            await File.WriteAllTextAsync(Head, firstCommitHash);
+            await File.WriteAllTextAsync(MasterBranch, firstCommitHash);
         }
 
         public static async Task Add(string FileName)
