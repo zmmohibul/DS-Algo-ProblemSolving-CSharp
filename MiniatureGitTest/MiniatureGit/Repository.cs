@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,7 +58,7 @@ namespace MiniatureGit
 
         public static async Task AddAll()
         {
-            var files = Directory.GetFiles(PWD.FullName, "*.*", SearchOption.AllDirectories).Where(d => !d.StartsWith("MiniatureGit") && !d.StartsWith("."));
+            var files = Directory.GetFiles(PWD.FullName);
 
             foreach (var file in files)
             {
