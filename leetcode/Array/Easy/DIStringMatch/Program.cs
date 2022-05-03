@@ -2,36 +2,32 @@
 
 int[] DiStringMatch(string s) 
 {
-    int[] perm = new int[s.Length + 1];
+    int[] prem = new int[s.Length + 1];
+
     int highestNum = s.Length;
     int lowestNum = 0;
+    char lastChar = s[0];
+
     int i = 0;
-    char lastChar = 'I';
-    foreach (var c in s)
+
+    for (i = 1; i <= s.Length + 1; i++)
     {
-        if (c.Equals('I'))
+        if (lastChar == 'I')
         {
-            perm[i] = lowestNum;
+            prem[i-1] = lowestNum;
             lowestNum += 1;
         }
-        else if (c.Equals('D'))
+        else 
         {
-            perm[i] = highestNum;
+            prem[i-1] = highestNum;
             highestNum -= 1;
         }
 
-        i += 1;
-        lastChar = c;
+        if (i < s.Length)
+        {
+            lastChar = s[i];
+        }
     }
 
-    if (lastChar.Equals('I'))
-    {
-        perm[i] = lowestNum;
-    }
-    else
-    {
-        perm[i] = highestNum;
-    }
-
-    return perm;
+    return prem;
 }
