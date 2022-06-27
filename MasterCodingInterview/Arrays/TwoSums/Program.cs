@@ -1,61 +1,26 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿int[] FindTargetPair(int[] arr, int target)
+{
+    int[] targetPair = new int[2];
 
-var nums = new int[] {1, 3, 7, 9, 2};
-var result = TwoSums(nums, 11);
-System.Console.WriteLine($"[{result[0]}, {result[1]}]");
-
-nums = new int[] {9, 2};
-result = TwoSums(nums, 11);
-System.Console.WriteLine($"[{result[0]}, {result[1]}]");
-
-nums = new int[] {9, 3};
-result = TwoSums(nums, 11);
-
-if (result == null) {
-    System.Console.WriteLine("Null..");
-} else {
-    System.Console.WriteLine("Uh oh! Didn't work.");
-}
-
-nums = new int[] {9};
-result = TwoSums(nums, 11);
-
-if (result == null) {
-    System.Console.WriteLine("Null..");
-} else {
-    System.Console.WriteLine("Uh oh! Didn't work.");
-}
-
-
-nums = new int[] {1, 3, 7, 9, 3, 5, 2};
-result = TwoSums(nums, 11);
-if (result == null) {
-    System.Console.WriteLine("Null..");
-} else {
-    System.Console.WriteLine($"[{result[0]}, {result[1]}]");
-}
-
-nums = new int[] {};
-result = TwoSums(nums, 11);
-if (result == null) {
-    System.Console.WriteLine("Null..");
-} else {
-    System.Console.WriteLine($"[{result[0]}, {result[1]}]");
-}
-
-int[] TwoSums(int[] nums, int target) {
-    var d = new Dictionary<int, int>();
-
-    for (int i = 0; i < nums.Length; i++) {
-        if (d.ContainsKey(nums[i])) {
-            return new int[] {d[nums[i]], i};
-        } else {
-            int nuumberToFind = target - nums[i];
-            d[nuumberToFind] = i;
+    for (int i = 0; i < arr.Length - 1; i++)
+    {
+        int numberToFind = target - arr[i];
+        for (int j = i + 1; j < arr.Length; j++)
+        {
+            if (arr[j] == numberToFind)
+            {
+                targetPair[0] = i;
+                targetPair[1] = j;
+                return targetPair;
+            }
         }
     }
 
-
     return null;
+}
+
+var targetPair = FindTargetPair(new int[] {1, 3, 7, 9, 2}, 92);
+if (targetPair != null)
+{
+    System.Console.WriteLine($"Target Pair: {targetPair[0]}, {targetPair[1]}");
 }
