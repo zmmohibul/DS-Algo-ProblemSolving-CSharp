@@ -1,42 +1,57 @@
-﻿
+﻿IList<IList<int>> ThreeSum(int[] nums) 
+{
+    var result = new List<IList<int>>();
 
-ThreeSum(new int[] {-4,-2,1,-5,-4,-4,4,-2,0,4,0,-2,3,1,-5,0});
-
-public IList<IList<int>> ThreeSum(int[] nums) {
-        var result = new List<IList<int>>();
-
-        for (int i = 0; i < nums.Length - 2; i++)
+    for (int i = 0; i < nums.Length - 2; i++)
+    {
+        for (int j = i + 1; j < nums.Length - 1; j++)
         {
-            for (int j = i + 1; j < nums.Length - 1; j++)
+            for (int k = j + 1; k < nums.Length; k++)
             {
-                for (int k = j + 1; k < nums.Length; k++)
+                var n1 = nums[i];
+                var n2 = nums[j];
+                var n3 = nums[k];
+                var n4 = n1 + n2 + n3;
+
+                if (n4 == 0)
                 {
-                    if (nums[i] + nums[j] + nums[k] == 0)
+                    var r = new List<int>{nums[i], nums[j], nums[k]};
+                    var foundTriplet = false;
+                    foreach (var item in result)
                     {
-                        var r = new List<int>{nums[i], nums[j], nums[k]};
-                        var foundTriplet = false;
-                        foreach (var item in result)
+                        // if (item.Equals(r))
+                        // {
+                        //     foundTriplet = true;
+                        //     break;
+                        // }
+                        r.Sort();
+                        var it = item.ToList();
+                        it.Sort();
+                        var eqC = 0;
+                        for (int x = 0; x < r.Count; x++)
                         {
-                            // if (item.Equals(r))
-                            // {
-                            //     foundTriplet = true;
-                            //     break;
-                            // }
-                            if (item.Contains(nums[i]) && item.Contains(nums[j]) && item.Contains(nums[k]))
+                            if (r[x] == it[x])
                             {
-                                foundTriplet = true;
-                                break;
+                                eqC += 1;
                             }
                         }
-                        if (!foundTriplet)
+                        if (eqC == 3)
                         {
-                            result.Add(r);
+                            foundTriplet = true;
+                            break;
                         }
-                        // result.Add(new List<int>{nums[i], nums[j], nums[k]});
+                    }
+                    if (!foundTriplet)
+                    {
+                        r.Sort();
+                        result.Add(r);
                     }
                 }
             }
         }
-
-        return result;
     }
+
+    return result;
+}
+
+ThreeSum(new int[] {-4,-2,1,-5,-4,-4,4,-2,0,4,0,-2,3,1,-5,0});
