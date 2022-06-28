@@ -1,22 +1,26 @@
 ﻿IList<IList<int>> ThreeSum(int[] nums) 
 {
     var result = new List<IList<int>>();
+    var itemIndexDict = new Dictionary<int, int>();
     var d = new Dictionary<int, List<List<int>>>();
-
-    for (int i = 0; i < nums.Length - 1; i++)
+    for (int i = 0, j = 1; i < nums.Length - 1; i++, j++)
     {
+        var ijSum = nums[i] + nums[j];
         if (d.ContainsKey(nums[i]))
         {
-            foreach (var pair in d[nums[i]])
+            var pairs = d[nums[i]];
+            foreach (var pair in pairs)
             {
-                if (i != pair[0] && i != pair[1])
+                var pi = pair[0];
+                var pj = pair[1];
+                if (i != pi && j != pi && i != pj && j != pj)
                 {
-                    var r = new List<int>{nums[pair[0]], nums[pair[1]], nums[i]};
-                    r.Sort();
+                    var l = new List<int>{nums[pi], nums[pj], nums[i]};
+                    l.Sort();
                     var isEqual = false;
-                    foreach (var rs in result)
+                    foreach (var item in result)
                     {
-                        isEqual = rs.SequenceEqual(r);
+                        isEqual = item.SequenceEqual(l);
                         if (isEqual)
                         {
                             break;
@@ -24,46 +28,70 @@
                     }
                     if (!isEqual)
                     {
-                        result.Add(r);
+                        result.Add(l);
                     }
                 }
             }
         }
 
-        for (int j = i + 1; j < nums.Length; j++)
+        if (d.ContainsKey(nums[j]))
         {
-            if (d.ContainsKey(nums[j]))
+            var pairs = d[nums[j]];
+            foreach (var pair in pairs)
             {
-                foreach (var pair in d[nums[j]])
+                var pi = pair[0];
+                var pj = pair[1];
+                if (i != pi && j != pi && i != pj && j != pj)
                 {
-                    if (j != pair[0] && j != pair[1])
+                    var l = new List<int>{nums[pi], nums[pj], nums[j]};
+                    l.Sort();
+                    var isEqual = false;
+                    foreach (var item in result)
                     {
-                        var r = new List<int>{nums[pair[0]], nums[pair[1]], nums[j]};
-                        r.Sort();
-                        var isEqual = false;
-                        foreach (var rs in result)
+                        isEqual = item.SequenceEqual(l);
+                        if (isEqual)
                         {
-                            isEqual = rs.SequenceEqual(r);
-                            if (isEqual)
-                            {
-                                break;
-                            }
+                            break;
                         }
-                        if (!isEqual)
-                        {
-                            result.Add(r);
-                        }
+                    }
+                    if (!isEqual)
+                    {
+                        result.Add(l);
                     }
                 }
             }
-
-            var ijSum = nums[i] + nums[j];
-            if (!d.ContainsKey(-ijSum))
-            {
-                d[-ijSum] = new List<List<int>>();
-            }
-            d[-ijSum].Add(new List<int>{i, j});
         }
+
+        if (itemIndexDict.ContainsKey(-ijSum))
+        {
+            var ind = itemIndexDict[-ijSum];
+            if (ind != i && ind != j)
+            {
+                var l = new List<int>{nums[i], nums[j], -ijSum};
+                l.Sort();
+                var isEqual = false;
+                foreach (var item in result)
+                {
+                    isEqual = item.SequenceEqual(l);
+                    if (isEqual)
+                    {
+                        break;
+                    }
+                }
+                if (!isEqual)
+                {
+                    result.Add(l);
+                }
+            }
+        }
+        if (!d.ContainsKey(-ijSum))
+        {
+            d[-ijSum] = new List<List<int>>();
+        }
+        d[-ijSum].Add(new List<int>{i, j});
+        itemIndexDict[nums[i]] = i;
+        itemIndexDict[nums[j]] = j;
+
     }
 
     return result;
