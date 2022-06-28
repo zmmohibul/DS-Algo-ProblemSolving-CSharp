@@ -1,57 +1,59 @@
 ﻿IList<IList<int>> ThreeSum(int[] nums) 
 {
     var result = new List<IList<int>>();
+    var d = new Dictionary<int, List<int>>();
 
-    for (int i = 0; i < nums.Length - 2; i++)
+    for (int i = 0; i < nums.Length - 1; i++)
     {
-        for (int j = i + 1; j < nums.Length - 1; j++)
+        if (d.ContainsKey(nums[i]))
         {
-            for (int k = j + 1; k < nums.Length; k++)
+            d[nums[i]].Add(nums[i]);
+            var isEqual = false;
+            foreach (var item in result)
             {
-                var n1 = nums[i];
-                var n2 = nums[j];
-                var n3 = nums[k];
-                var n4 = n1 + n2 + n3;
-
-                if (n4 == 0)
+                isEqual = item.OrderBy(x => x).SequenceEqual(d[nums[i]].OrderBy(x => x));
+                if (isEqual)
                 {
-                    var r = new List<int>{nums[i], nums[j], nums[k]};
-                    var foundTriplet = false;
-                    foreach (var item in result)
-                    {
-                        // if (item.Equals(r))
-                        // {
-                        //     foundTriplet = true;
-                        //     break;
-                        // }
-                        r.Sort();
-                        var it = item.ToList();
-                        it.Sort();
-                        var eqC = 0;
-                        for (int x = 0; x < r.Count; x++)
-                        {
-                            if (r[x] == it[x])
-                            {
-                                eqC += 1;
-                            }
-                        }
-                        if (eqC == 3)
-                        {
-                            foundTriplet = true;
-                            break;
-                        }
-                    }
-                    if (!foundTriplet)
-                    {
-                        r.Sort();
-                        result.Add(r);
-                    }
+                    break;
                 }
             }
+            if (!isEqual)
+            {
+                result.Add(d[nums[i]]);
+            }
+            d.Remove(nums[i]);
+        }
+
+        for (int j = i + 1; j < nums.Length; j++)
+        {
+            if (d.ContainsKey(nums[j]))
+            {
+                d[nums[j]].Add(nums[j]);
+                var isEqual = false;
+                foreach (var item in result)
+                {
+                    isEqual = item.OrderBy(x => x).SequenceEqual(d[nums[j]].OrderBy(x => x));
+                    if (isEqual)
+                    {
+                        break;
+                    }
+                }
+                if (!isEqual)
+                {
+                    result.Add(d[nums[j]]);
+                }
+                d.Remove(nums[j]);
+            }
+
+            var ijSum = nums[i] + nums[j];
+            var numToFind = -ijSum;
+            d[numToFind] = new List<int>{nums[i], nums[j]};
         }
     }
 
     return result;
 }
 
+
 ThreeSum(new int[] {-4,-2,1,-5,-4,-4,4,-2,0,4,0,-2,3,1,-5,0});
+// ThreeSum(new int[] {-1, 0, 1, 2, -1, -4});
