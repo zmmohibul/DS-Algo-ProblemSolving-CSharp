@@ -1,53 +1,68 @@
 ﻿IList<IList<int>> ThreeSum(int[] nums) 
 {
     var result = new List<IList<int>>();
-    var d = new Dictionary<int, List<int>>();
+    var d = new Dictionary<int, List<List<int>>>();
 
     for (int i = 0; i < nums.Length - 1; i++)
     {
         if (d.ContainsKey(nums[i]))
         {
-            d[nums[i]].Add(nums[i]);
-            var isEqual = false;
-            foreach (var item in result)
+            foreach (var pair in d[nums[i]])
             {
-                isEqual = item.OrderBy(x => x).SequenceEqual(d[nums[i]].OrderBy(x => x));
-                if (isEqual)
+                if (i != pair[0] && i != pair[1])
                 {
-                    break;
+                    var r = new List<int>{nums[pair[0]], nums[pair[1]], nums[i]};
+                    r.Sort();
+                    var isEqual = false;
+                    foreach (var rs in result)
+                    {
+                        isEqual = rs.SequenceEqual(r);
+                        if (isEqual)
+                        {
+                            break;
+                        }
+                    }
+                    if (!isEqual)
+                    {
+                        result.Add(r);
+                    }
                 }
             }
-            if (!isEqual)
-            {
-                result.Add(d[nums[i]]);
-            }
-            d.Remove(nums[i]);
         }
 
         for (int j = i + 1; j < nums.Length; j++)
         {
             if (d.ContainsKey(nums[j]))
             {
-                d[nums[j]].Add(nums[j]);
-                var isEqual = false;
-                foreach (var item in result)
+                foreach (var pair in d[nums[j]])
                 {
-                    isEqual = item.OrderBy(x => x).SequenceEqual(d[nums[j]].OrderBy(x => x));
-                    if (isEqual)
+                    if (j != pair[0] && j != pair[1])
                     {
-                        break;
+                        var r = new List<int>{nums[pair[0]], nums[pair[1]], nums[j]};
+                        r.Sort();
+                        var isEqual = false;
+                        foreach (var rs in result)
+                        {
+                            isEqual = rs.SequenceEqual(r);
+                            if (isEqual)
+                            {
+                                break;
+                            }
+                        }
+                        if (!isEqual)
+                        {
+                            result.Add(r);
+                        }
                     }
                 }
-                if (!isEqual)
-                {
-                    result.Add(d[nums[j]]);
-                }
-                d.Remove(nums[j]);
             }
 
             var ijSum = nums[i] + nums[j];
-            var numToFind = -ijSum;
-            d[numToFind] = new List<int>{nums[i], nums[j]};
+            if (!d.ContainsKey(-ijSum))
+            {
+                d[-ijSum] = new List<List<int>>();
+            }
+            d[-ijSum].Add(new List<int>{i, j});
         }
     }
 
