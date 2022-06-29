@@ -1,102 +1,46 @@
 ﻿IList<IList<int>> ThreeSum(int[] nums) 
 {
     var result = new List<IList<int>>();
-    var itemIndexDict = new Dictionary<int, int>();
     var d = new Dictionary<int, List<List<int>>>();
-    for (int i = 0, j = 1; i < nums.Length - 1; i++, j++)
+
+    var numsAsHashSet = new HashSet<int>();
+    foreach (var num in nums)
     {
-        var ijSum = nums[i] + nums[j];
-        if (d.ContainsKey(nums[i]))
+        numsAsHashSet.Add(num);
+    }
+    var arrayFormOfNumsAsHashSet = new int[numsAsHashSet.Count];
+
+    int i = 0;
+    foreach (var item in numsAsHashSet)
+    {
+        arrayFormOfNumsAsHashSet[i] = item;
+        i += 1;
+    }
+
+    foreach (var item in arrayFormOfNumsAsHashSet)
+    {
+        Console.Write($"{item} ");
+    }
+    System.Console.WriteLine();
+
+    for (int j = 0; j < arrayFormOfNumsAsHashSet.Length - 1; j++)
+    {
+        for (int k = j + 1; k < arrayFormOfNumsAsHashSet.Length; k++)
         {
-            var pairs = d[nums[i]];
-            foreach (var pair in pairs)
+            var jkSum = arrayFormOfNumsAsHashSet[j] + arrayFormOfNumsAsHashSet[k];
+            if (numsAsHashSet.Contains(-jkSum))
             {
-                var pi = pair[0];
-                var pj = pair[1];
-                if (i != pi && j != pi && i != pj && j != pj)
+                if (arrayFormOfNumsAsHashSet[j] != -jkSum && arrayFormOfNumsAsHashSet[k] != -jkSum)
                 {
-                    var l = new List<int>{nums[pi], nums[pj], nums[i]};
-                    l.Sort();
-                    var isEqual = false;
-                    foreach (var item in result)
-                    {
-                        isEqual = item.SequenceEqual(l);
-                        if (isEqual)
-                        {
-                            break;
-                        }
-                    }
-                    if (!isEqual)
-                    {
-                        result.Add(l);
-                    }
+                    var r = new List<int> {arrayFormOfNumsAsHashSet[j], arrayFormOfNumsAsHashSet[k], -jkSum};
+                    result.Add(r);
                 }
             }
         }
-
-        if (d.ContainsKey(nums[j]))
-        {
-            var pairs = d[nums[j]];
-            foreach (var pair in pairs)
-            {
-                var pi = pair[0];
-                var pj = pair[1];
-                if (i != pi && j != pi && i != pj && j != pj)
-                {
-                    var l = new List<int>{nums[pi], nums[pj], nums[j]};
-                    l.Sort();
-                    var isEqual = false;
-                    foreach (var item in result)
-                    {
-                        isEqual = item.SequenceEqual(l);
-                        if (isEqual)
-                        {
-                            break;
-                        }
-                    }
-                    if (!isEqual)
-                    {
-                        result.Add(l);
-                    }
-                }
-            }
-        }
-
-        if (itemIndexDict.ContainsKey(-ijSum))
-        {
-            var ind = itemIndexDict[-ijSum];
-            if (ind != i && ind != j)
-            {
-                var l = new List<int>{nums[i], nums[j], -ijSum};
-                l.Sort();
-                var isEqual = false;
-                foreach (var item in result)
-                {
-                    isEqual = item.SequenceEqual(l);
-                    if (isEqual)
-                    {
-                        break;
-                    }
-                }
-                if (!isEqual)
-                {
-                    result.Add(l);
-                }
-            }
-        }
-        if (!d.ContainsKey(-ijSum))
-        {
-            d[-ijSum] = new List<List<int>>();
-        }
-        d[-ijSum].Add(new List<int>{i, j});
-        itemIndexDict[nums[i]] = i;
-        itemIndexDict[nums[j]] = j;
-
     }
 
     return result;
 }
 
-
-ThreeSum(new int[] {-4,-2,1,-5,-4,-4,4,-2,0,4,0,-2,3,1,-5,0});
-// ThreeSum(new int[] {-1, 0, 1, 2, -1, -4});
+// ThreeSum(new int[] {-4,-2,1,-5,-4,-4,4,-2,0,4,0,-2,3,1,-5,0});
+ThreeSum(new int[] {-1, 0, 1, 2, -1, -4});
