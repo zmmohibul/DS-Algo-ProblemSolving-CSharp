@@ -3,44 +3,58 @@
     var result = new List<IList<int>>();
     var d = new Dictionary<int, List<List<int>>>();
 
-    var numsAsHashSet = new HashSet<int>();
-    foreach (var num in nums)
-    {
-        numsAsHashSet.Add(num);
-    }
-    var arrayFormOfNumsAsHashSet = new int[numsAsHashSet.Count];
+    Array.Sort(nums);
 
-    int i = 0;
-    foreach (var item in numsAsHashSet)
+    for (int i = 0; i < nums.Length - 1; i++)
     {
-        arrayFormOfNumsAsHashSet[i] = item;
-        i += 1;
-    }
-
-    foreach (var item in arrayFormOfNumsAsHashSet)
-    {
-        Console.Write($"{item} ");
-    }
-    System.Console.WriteLine();
-
-    for (int j = 0; j < arrayFormOfNumsAsHashSet.Length - 1; j++)
-    {
-        for (int k = j + 1; k < arrayFormOfNumsAsHashSet.Length; k++)
+        for (int j = i + 1; j < nums.Length; j++)
         {
-            var jkSum = arrayFormOfNumsAsHashSet[j] + arrayFormOfNumsAsHashSet[k];
-            if (numsAsHashSet.Contains(-jkSum))
+            var ijSum = nums[i] + nums[j];
+            if (BinarySearch(nums, -ijSum, j + 1))
             {
-                if (arrayFormOfNumsAsHashSet[j] != -jkSum && arrayFormOfNumsAsHashSet[k] != -jkSum)
-                {
-                    var r = new List<int> {arrayFormOfNumsAsHashSet[j], arrayFormOfNumsAsHashSet[k], -jkSum};
-                    result.Add(r);
-                }
+                var r = new List<int>{nums[i], nums[j], -ijSum};
+                result.Add(r);
+            }
+            while (j < nums.Length - 1 && nums[j] == nums[j+1])
+            {
+                j++;
             }
         }
+        while (i < nums.Length - 1 && nums[i] == nums[i+1])
+        {
+            i++;
+        }
     }
+    
 
     return result;
 }
 
-// ThreeSum(new int[] {-4,-2,1,-5,-4,-4,4,-2,0,4,0,-2,3,1,-5,0});
-ThreeSum(new int[] {-1, 0, 1, 2, -1, -4});
+bool BinarySearch(int[] nums, int target, int left)
+{
+    int right = nums.Length - 1;
+    while (right >= left)
+    {
+        int mid = (left + right) / 2;
+        if (nums[mid] == target) 
+        {
+            return true;
+        }
+
+        if (target > nums[mid])
+        {
+            left = mid + 1;
+        }
+        else
+        {
+            right = mid - 1;
+        }
+    }
+    
+    return false;
+}
+
+System.Console.WriteLine(BinarySearch(new int[] {1}, 1, 0));
+
+ThreeSum(new int[] {-4,-2,1,-5,-4,-4,4,-2,0,4,0,-2,3,1,-5,0});
+// ThreeSum(new int[] {-1, 0, 1, 2, -1, -4});
