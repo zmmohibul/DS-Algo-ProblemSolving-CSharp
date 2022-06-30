@@ -9,25 +9,20 @@ namespace ReverseList
                 return head;
             }
 
-            ListNode newHead = null;
+            ListNode prev = null;
             var curr = head;
+            ListNode next = head;;
             while (curr != null)
             {
-                if (newHead == null)
-                {
-                    newHead = new ListNode(curr.val, null);
-                }
-                else
-                {
-                    var node = new ListNode(curr.val, newHead);
-                    newHead = node;
-                }
+                next = curr.next;
+                curr.next = prev;
+                prev = curr;
+                curr = next;
 
-                curr = curr.next;
             }
 
 
-            return newHead;
+            return prev;
         }
     }
 }
