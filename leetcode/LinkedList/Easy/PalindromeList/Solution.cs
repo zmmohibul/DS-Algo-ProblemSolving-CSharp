@@ -9,32 +9,34 @@ namespace PalindromeList
     {
         public bool IsPalindrome(ListNode head)
         {
-            ListNode revListHead = null;
             var curr = head;
+            var totalItem = 0;
             while (curr != null)
             {
-                if (revListHead == null)
-                {
-                    revListHead = new ListNode(curr.val, null);
-                }
-                else
-                {
-                    var newNode = new ListNode(curr.val, revListHead);
-                    revListHead = newNode;
-                }
+                totalItem += 1;
                 curr = curr.next;
             }
 
             curr = head;
-            var revCurr = revListHead;
+            var rev = new int[totalItem];
+            var i = totalItem - 1;
             while (curr != null)
             {
-                if (curr.val != revCurr.val)
+                rev[i] = curr.val;
+                curr = curr.next;
+                i -= 1;
+            }
+
+            curr = head;
+            i = 0;
+            while (curr != null)
+            {
+                if (rev[i] != curr.val)
                 {
                     return false;
                 }
                 curr = curr.next;
-                revCurr = revCurr.next;
+                i += 1;
             }
 
             return true;
