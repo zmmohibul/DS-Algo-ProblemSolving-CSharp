@@ -9,22 +9,14 @@ namespace MissingNumber
     {
         public int MissingNumber(int[] nums)
         {
-            var numsSet = new HashSet<int>();
-            foreach (var num in nums)
+            var sum = 0;
+            foreach (var n in nums)
             {
-                numsSet.Add(num);
+                sum += n;
             }
 
-            int ans = 0;
-            for (int i = 0; i < nums.Length; i++)
-            {
-                if (!numsSet.Contains(i))
-                {
-                    ans = i;
-                    break;
-                }
-            }
-            return ans;
+            var expectedSum = (nums.Length * (nums.Length + 1)) / 2;
+            return expectedSum - sum;
         }
     }
 }
