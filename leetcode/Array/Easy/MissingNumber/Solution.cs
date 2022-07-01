@@ -9,13 +9,13 @@ namespace MissingNumber
     {
         public int MissingNumber(int[] nums)
         {
-            var sum = 0;
-            foreach (var n in nums)
+            int sum = 0;
+            for (int i = 1; i <= nums.Length; i++)
             {
-                sum += n;
+                sum += nums[i];
             }
 
-            var expectedSum = (nums.Length * (nums.Length + 1)) / 2;
+            int expectedSum = (nums.Length * (nums.Length + 1)) / 2;
             return expectedSum - sum;
         }
     }
