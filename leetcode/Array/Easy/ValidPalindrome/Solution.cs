@@ -59,7 +59,6 @@ namespace ValidPalindrome
                 k -= 1;
             }
 
-            var ss = "0P";
             return true;
         }
     }
