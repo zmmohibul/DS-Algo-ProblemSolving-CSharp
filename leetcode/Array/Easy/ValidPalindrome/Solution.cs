@@ -26,6 +26,14 @@ namespace ValidPalindrome
                 alphabet++;
             }
 
+            var numbers = new HashSet<char>();
+            var number = '0';
+            for (int i = 0; i < 10; i++)
+            {
+                numbers.Add(number);
+                number++;
+            }
+
             var sb = new StringBuilder();
             foreach (var c in s)
             {
@@ -33,7 +41,7 @@ namespace ValidPalindrome
                 {
                     sb.Append((char) (c + 32));
                 }
-                else if (lowerCaseAlphabets.Contains(c))
+                else if (lowerCaseAlphabets.Contains(c) || numbers.Contains(c))
                 {
                     sb.Append(c);
                 }
