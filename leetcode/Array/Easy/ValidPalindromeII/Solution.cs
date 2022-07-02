@@ -10,25 +10,37 @@ namespace ValidPalindromeII
     {
         public bool ValidPalindrome(string s) 
         {
-            var sb = new StringBuilder(s);
             for (int i = 0; i < s.Length; i++)
             {
-                sb.Remove(i, 1);
-                if (IsPalindrome(sb))
+                if (IsPalindrome(s, i))
                 {
                     return true;
                 }
-                sb = new StringBuilder(s);
             }
             return false;
         }
 
-        public bool IsPalindrome(StringBuilder sb)
+        public bool IsPalindrome(string sb, int indexToAvoid)
         {
             int i = 0;
             int j = sb.Length - 1;
+            bool indexAvoided = false;
             while (j > i)
             {
+                if (!indexAvoided)
+                {
+                    if (i == indexToAvoid)
+                    {
+                        i += 1;
+                        indexAvoided = true;
+                    }
+                    else if (j == indexToAvoid)
+                    {
+                        j -= 1;
+                        indexAvoided = true;
+                    }
+                }
+
                 if (sb[i] != sb[j])
                 {
                     return false;
