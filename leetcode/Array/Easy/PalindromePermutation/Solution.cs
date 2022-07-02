@@ -22,29 +22,16 @@ namespace PalindromePermutation
                 }
             }
 
-            if (s.Length % 2 == 0)
+            var unevenChars = 0;
+            foreach (var (ch, count) in charFreq)
             {
-                foreach (var (ch, count) in charFreq)
+                if (count % 2 != 0)
                 {
-                    if (count % 2 != 0)
-                    {
-                        return false;
-                    }
+                    unevenChars += 1;
                 }
-            }
-            else
-            {
-                var unevenChars = 0;
-                foreach (var (ch, count) in charFreq)
+                if (unevenChars > 1)
                 {
-                    if (count % 2 != 0)
-                    {
-                        unevenChars += 1;
-                    }
-                    if (unevenChars > 1)
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
             return true;
