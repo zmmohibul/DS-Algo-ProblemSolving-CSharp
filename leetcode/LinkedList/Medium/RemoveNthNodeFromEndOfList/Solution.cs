@@ -29,7 +29,11 @@ namespace RemoveNthNodeFromEndOfList
                 curr = curr.next;
             }
 
-            if (curr.next.next != null)
+            if (curr == head && nIndex == 1)
+            {
+                return curr.next;
+            }
+            else if (curr.next.next != null)
             {
                 curr.next = curr.next.next;
             }
