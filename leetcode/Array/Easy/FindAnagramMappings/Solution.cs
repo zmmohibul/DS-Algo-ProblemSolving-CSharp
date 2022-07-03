@@ -9,25 +9,26 @@ namespace FindAnagramMappings
     {
         public int[] AnagramMappings(int[] nums1, int[] nums2) 
         {
-            // Brute Force
+            // Optimized O(n)
+            // Intantiate a dictionary nums2Index for mapping index of each number in nums2
+            Dictionary<int, int> nums2Index = new Dictionary<int, int>();
+
+            // Iterate over each item in nums2 with index i
+            for (int i = 0; i < nums2.Length; i++)
+            {
+                // Add item to dictionary with value as i
+                nums2Index[nums2[i]] = i;
+            }
+
             // Instantiate a result array of length nums1.Length
             int[] result = new int[nums1.Length];
 
             // Iterate over nums1 with index i 
             for (int i = 0; i < nums1.Length; i++)
             {
-                // For each nums1[i] find the position of that nums[i] in nums2 with index j and insert j at result[i]
-                for (int j = 0; j < nums2.Length; j++)
-                {
-                    if (nums2[j] == nums1[i])
-                    {
-                        result[i] = j;
-                        break;
-                    }
-                }
-
+                // Insert the value of nums1[i] in nums2Index at result[i]
+                result[i] = nums2Index[nums1[i]];
             }
-
 
             // Return the result array
             return result;
