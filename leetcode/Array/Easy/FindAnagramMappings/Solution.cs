@@ -9,7 +9,7 @@ namespace FindAnagramMappings
     {
         public int[] AnagramMappings(int[] nums1, int[] nums2) 
         {
-            // Brute Force
+            // Brute Force (n^2)
             // Instantiate a result array of length nums1.Length
             int[] result = new int[nums1.Length];
 
