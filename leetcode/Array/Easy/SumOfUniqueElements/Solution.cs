@@ -9,46 +9,22 @@ namespace SumOfUniqueElements
     {
         public int SumOfUnique(int[] nums) 
         {
-            // O(n log n)
+            // O(n)
+            var numsFreq = new Dictionary<int, int>();
+            foreach (var num in nums)
+            {
+                numsFreq[num] = numsFreq.GetValueOrDefault(num, 0) + 1;
+            }
+
             int sum = 0;
-
-            // Sort the array
-            Array.Sort(nums);
-
-            // Iterate over each element with i index in nums
-            int i = 0;
-            for (i = 0; i < nums.Length - 1; i++)
+            foreach (var (num, count) in numsFreq)
             {
-                int ithElement = nums[i];
-                if (nums[i] != nums[i + 1])
+                if (count == 1)
                 {
-                    sum += nums[i];
-                }
-                else
-                {
-                    while (nums[i + 1] == ithElement)
-                    {
-                        i += 1;
-                        if (i >= nums.Length - 1)
-                        {
-                            break;
-                        }
-                    }
-                }
-
-            }
-            
-            if (i == 0)
-            {
-                return nums[i];
-            }
-            else if (i < nums.Length)
-            {
-                if (nums[i] != nums[i - 1])
-                {
-                    sum += nums[i];
+                    sum += num;
                 }
             }
+
             return sum;
         }
     }
