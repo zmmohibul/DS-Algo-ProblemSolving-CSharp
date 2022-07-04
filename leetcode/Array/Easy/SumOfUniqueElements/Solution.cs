@@ -9,30 +9,44 @@ namespace SumOfUniqueElements
     {
         public int SumOfUnique(int[] nums) 
         {
-            // Brute Force O(n^2)
+            // O(n log n)
             int sum = 0;
+
+            // Sort the array
+            Array.Sort(nums);
+
             // Iterate over each element with i index in nums
-            for (int i = 0; i < nums.Length; i++)
+            int i = 0;
+            for (i = 0; i < nums.Length - 1; i++)
             {
                 int ithElement = nums[i];
-                // Check if the i th element exist in rest of the array
-                bool ithElementFound = false;
-                for (int j = 0; j < nums.Length; j++)
+                if (nums[i] != nums[i + 1])
                 {
-                    if (j != i)
+                    sum += nums[i];
+                }
+                else
+                {
+                    while (nums[i + 1] == ithElement)
                     {
-                        if (nums[j] == ithElement)
+                        i += 1;
+                        if (i >= nums.Length - 1)
                         {
-                            ithElementFound = true;
                             break;
                         }
                     }
                 }
 
-                // If ith element not found in rest of array add it to sum
-                if (!ithElementFound)
+            }
+            
+            if (i == 0)
+            {
+                return nums[i];
+            }
+            else if (i < nums.Length)
+            {
+                if (nums[i] != nums[i - 1])
                 {
-                    sum += ithElement;
+                    sum += nums[i];
                 }
             }
             return sum;
