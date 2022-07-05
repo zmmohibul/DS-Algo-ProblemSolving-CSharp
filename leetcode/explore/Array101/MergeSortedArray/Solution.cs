@@ -9,49 +9,49 @@ namespace MergeSortedArray
     {
         public void Merge(int[] nums1, int m, int[] nums2, int n) 
         {
-            int i = 0;
-            int j = 0;
-            var result = new int[m + n];
-            int k = 0;
-            while (i < m && j < n)
+            if (n == 0)
             {
-                if (nums1[i] <= nums2[j])
+                return;
+            }
+            if (m == 0)
+            {
+                for (int x = 0; x < n; x++)
                 {
-                    result[k] = nums1[i];
-                    i += 1;
-                    k += 1;
+                    nums1[x] = nums2[x];
+                }
+            }
+            
+            int i = m -1;
+            int j = n - 1;
+            int k = nums1.Length - 1;
+            
+            while (i >= 0 && j >= 0)
+            {
+                if (nums2[j] >= nums1[i])
+                {
+                    nums1[k] = nums2[j];
+                    j -= 1;
+                    k -= 1;
                 }
                 else
                 {
-                    result[k] = nums2[j];
-                    j += 1;
-                    k += 1;
+                    nums1[k] = nums1[i];
+                    i -= 1;
+                    k -= 1;
+                }
+            }
+            
+            if (j >= 0)
+            {
+                while (j >= 0)
+                {
+                    nums1[k] = nums2[j];
+                    j -= 1;
+                    k -= 1;
                 }
             }
 
-            if (i < m)
-            {
-                while (i < m)
-                {
-                    result[k] = nums1[i];
-                    i += 1;
-                    k += 1;
-                }
-            }
-            else if (j < n)
-            {
-                while (j < n)
-                {
-                    result[k] = nums2[j];
-                    j += 1;
-                    k += 1;
-                }
-            }
 
-            for (int l = 0; l < result.Length; l++)
-            {
-                nums1[l] = result[l];
-            }
         }
     }
 }
