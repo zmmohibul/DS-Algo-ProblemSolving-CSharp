@@ -20,14 +20,15 @@ namespace SortArrayByIncreasingFrequency
             
             var result = new int[nums.Length];
             int i = 0;
-            foreach (var count in counts)
+
+            for (int m = 0; m < counts.Length; m++)
             {
                 var l = new List<int>();
                 foreach (var (key, value) in numFreq)
                 {
-                    if (value == count)
+                    if (value == counts[m])
                     {
-                        for (int k = 0; k < count; k++)
+                        for (int k = 0; k < counts[m]; k++)
                         {
                             l.Add(key);
                         }
@@ -38,6 +39,10 @@ namespace SortArrayByIncreasingFrequency
                 {
                     result[i] = l[j];
                     i += 1;
+                }
+                while (counts[m + 1] == counts[m])
+                {
+                    m += 1;
                 }
             }
 
