@@ -10,24 +10,21 @@ namespace DivideArrayIntoEqualPairs
         public bool DivideArray(int[] nums) 
         {
             // [3,2,3,2,2,2]
-            Array.Sort(nums);
-            // [2, 2, 2, 2, 3, 3]
-            //           i
-            for (int i = 0; i < nums.Length; i++)
+            var numFreq = new Dictionary<int, int>();
+            foreach (var num in nums)
             {
-                int currNumCount = 1;
-                while (i + 1 < nums.Length && nums[i + 1] == nums[i])
-                {
-                    currNumCount += 1;
-                    i += 1;
-                }
-                if (currNumCount % 2 != 0)
+                numFreq[num] = numFreq.GetValueOrDefault(num, 0) + 1;
+            }
+
+            foreach (var count in numFreq.Values)
+            {
+                if (count % 2 != 0)
                 {
                     return false;
                 }
             }
-            
-            return true;
+
+            return true;            
         }
     }
 }
