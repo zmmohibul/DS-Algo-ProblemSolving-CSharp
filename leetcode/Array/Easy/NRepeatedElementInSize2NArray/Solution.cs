@@ -9,16 +9,17 @@ namespace NRepeatedElementInSize2NArray
     {
         public int RepeatedNTimes(int[] nums)
         {
-            var numFreq = new Dictionary<int, int>();
+            var numSet = new HashSet<int>();
+
             var numToReturn = 0;
             foreach (var num in nums)
             {
-                numFreq[num] = numFreq.GetValueOrDefault(num, 0) + 1;
-                if (numFreq[num] > 1)
+                if (numSet.Contains(num))
                 {
                     numToReturn = num;
                     break;
                 }
+                numSet.Add(num);
             }
 
             return numToReturn;
