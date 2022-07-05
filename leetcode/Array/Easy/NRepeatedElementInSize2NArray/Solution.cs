@@ -9,14 +9,18 @@ namespace NRepeatedElementInSize2NArray
     {
         public int RepeatedNTimes(int[] nums)
         {
-            Array.Sort(nums);
-            
-            var numToReturn = 0;
-            for (int i = 0; i < nums.Length - 1; i++)
+            var numFreq = new Dictionary<int, int>();
+            foreach (var num in nums)
             {
-                if (nums[i] == nums[i + 1])
+                numFreq[num] = numFreq.GetValueOrDefault(num, 0) + 1;
+            }
+
+            var numToReturn = 0;
+            foreach (var (num, count) in numFreq)
+            {
+                if (count > 1)
                 {
-                    numToReturn = nums[i];
+                    numToReturn = num;
                     break;
                 }
             }
