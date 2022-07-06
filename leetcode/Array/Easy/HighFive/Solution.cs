@@ -9,11 +9,8 @@ namespace HighFive
     {
         public int[][] HighFive(int[][] items) 
         {
-            // Instantiate a Dictionary of (int, List<int>)
-            // This dictionary will keep track of list of scores for each student
             var studentScores = new Dictionary<int, List<int>>();
 
-            // Iterate over each score in items and add score to student's id in Dictionary  
             foreach (var item in items)
             {
                 var studentId = item[0];
@@ -26,31 +23,32 @@ namespace HighFive
             }
 
             int[][] result = new int[studentScores.Count()][];
-            int i = 0;
-            // Iterate over each (student, scores) in dictionary
-            foreach (var (student, score) in studentScores)
-            {
-                // For each student sort the scores list
-                score.Sort();
+            int ri = 0;
+            
+            var students = studentScores.Keys.ToArray();
+            Array.Sort(students);
 
-                // Calculate the average of last 5 items in list
-                int sum = 0;
+            foreach (var student in students)
+            {
+                var scores = studentScores[student];
+                scores.Sort();
+
+                int j = scores.Count - 1;
                 int numberOfScoresCalculated = 0;
-                int j = score.Count - 1;
+                int sum = 0;
                 while (j >= 0 && numberOfScoresCalculated < 5)
                 {
-                    sum += score[j];
+                    sum += scores[j];
                     j -= 1;
                     numberOfScoresCalculated += 1;
                 }
+
                 int average = sum / 5;
 
-                // Add (student, average) to result array
-                result[i] = new int[2]{student, average};
-                i += 1;
+                result[ri] = new int[] {student, average};
+                ri += 1;
             }
             
-            // Return result array;
             return result;
         }
     }
