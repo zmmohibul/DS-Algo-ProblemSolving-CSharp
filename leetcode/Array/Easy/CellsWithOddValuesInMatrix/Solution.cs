@@ -9,30 +9,46 @@ namespace CellsWithOddValuesInMatrix
     {
         public int OddCells(int m, int n, int[][] indices) 
         {
-            int[,] matrix = new int[m, n];
-            
+            int[][] matrix = new int[m][];
+            for (int i = 0; i < m; i++)
+            {
+                matrix[i] = new int[n];
+            }
+
             foreach (var index in indices)
             {
                 var r = index[0];
                 var c = index[1];
-                for (int row = 0; row < m; r++)
+                for (int row = 0; row < m; row++)
                 {
                     for (int column = 0; column < n; column++)
                     {
-                        if (row == r || column == c)
+                        if (row == r)
                         {
-                            matrix[row, column] += 1;
+                            matrix[row][column] += 1;
+                        }
+
+                        if (column == c)
+                        {
+                            matrix[row][column] += 1;
                         }
                     }
                 }
             }
 
-            foreach (var item in matrix)
+            var oddCount = 0;
+            foreach (var row in matrix)
             {
-                Console.Write($"{item}, ");
+                foreach (var column in row)
+                {
+                    if (column % 2 != 0)
+                    {
+                        oddCount += 1;
+                    }
+                }
             }
 
-            return 0;
+            return oddCount;
         }
     }
 }
