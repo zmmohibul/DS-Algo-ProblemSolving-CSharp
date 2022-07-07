@@ -9,31 +9,17 @@ namespace RemoveElement
     {
         public int RemoveElement(int[] nums, int val) 
         {
-            int count = 0;
-            var indicesToDelete = new List<int>();
-            
-            for (int i = 0; i < nums.Length; i++)
+            int i = 0;
+            for (int j = 0; j < nums.Length; j++)
             {
-                if (nums[i] == val)
+                if (nums[j] != val)
                 {
-                    indicesToDelete.Add(i);
+                    nums[i] = nums[j];
+                    i += 1;
                 }
             }
-            
-            int length = nums.Length;
-            int c = 0;
-            foreach (var index in indicesToDelete)
-            {
-                var ind = index - c;
-                for (int i = ind + 1; i < length; i++)
-                {
-                    nums[i - 1] = nums[i];
-                }
-                length -= 1;
-                c += 1;
-            }
-            
-            return length;
+
+            return i;
         }
     }
 }
