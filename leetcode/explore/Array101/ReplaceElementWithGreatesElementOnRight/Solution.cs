@@ -9,22 +9,24 @@ namespace ReplaceElementWithGreatesElementOnRight
     {
         public int[] ReplaceElements(int[] arr)
         {
-            int i;
-            for (i = 0; i < arr.Length - 1; i++)
+            int i = arr.Length - 1;
+            int max = arr[i];
+            while (i > 0)
             {
-                int max = arr[i + 1];
-                int j = i + 1;
-                while (j < arr.Length)
+                i -= 1;
+                int newMax = 0;
+                if (arr[i] > max)
                 {
-                    if (arr[j] > max)
-                    {
-                        max = arr[j];
-                    }
-                    j += 1;
+                    newMax = arr[i];
+                    arr[i] = max;
+                    max = newMax;
                 }
-                arr[i] = max;
+                else
+                {
+                    arr[i] = max;
+                }
             }
-            arr[i] = -1;
+            arr[arr.Length - 1] = -1;
             return arr;
         }
     }
