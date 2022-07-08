@@ -10,36 +10,38 @@ namespace MaxConsecutiveOnesII
         public int FindMaxConsecutiveOnes(int[] nums) 
         {
             int maxCount = 0;
-            for (int i = 0; i < nums.Length; i++)
+            int i = 0;
+            int j = 0;
+            int lastSeenZero = 0;
+            int zeroCount = 0;
+            while (j < nums.Length)
             {
-                int j = i;
-                int count = 0;
-                int zCount = 0;
-                while (j < nums.Length)
+                if (nums[j] == 0)
                 {
-                    if (nums[j] == 0)
+                    zeroCount += 1;
+                    if (zeroCount >= 2)
                     {
-                        zCount += 1;
+                        int count = j - i;
+                        if (count > maxCount)
+                        {
+                            maxCount = count;
+                        }
+                        i = lastSeenZero + 1;
+                        zeroCount -= 1;
                     }
-                    
-                    if (zCount == 2)
-                    {
-                        break;
-                    }
-                    j += 1;
-                    count += 1;
+                    lastSeenZero = j;
                 }
-                
-                if (count > maxCount)
-                {
-                    maxCount = count;
-                }
-                
-                i = j - 1;
+                j += 1;
             }
             
-            return maxCount;
-            
+            if (j - i > maxCount)
+            {
+                return j - i;
+            }
+            else
+            {
+                return maxCount;
+            }
         }
     }
 }
