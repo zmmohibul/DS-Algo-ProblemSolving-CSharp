@@ -12,20 +12,28 @@ namespace MoveZeroes
             int zeroCount = 0;
             for (int i = 0; i < nums.Length; i++)
             {
-                if (nums[i] == 0)
+                if (nums[i] == 0) 
                 {
-                    for (int j = i + 1; j < nums.Length; j++)
-                    {
-                        nums[j - 1] = nums[j];
-                    }
                     zeroCount += 1;
                 }
             }
-            int j = nums.Length - 1;
-            for (int i = 0; i < zeroCount; i++)
+            
+            for (int i = 0; i < nums.Length; i++)
             {
-                nums[j] = 0;
-                j -= 1;
+                if (nums[i] == 0)
+                {
+                    int j = i;
+                    while (j < nums.Length - 1)
+                    {
+                        nums[j] = nums[j + 1];
+                        j += 1;
+                    }
+                    nums[j] = 0;
+                }
+                if (nums[i] == 0 && i < nums.Length - zeroCount)
+                {
+                    i -= 1;
+                }
             }
         }
     }
