@@ -12,30 +12,30 @@ namespace PlusOne
             // [4,3,2,1]
             //         i
             // digit = = 43
-            var digit = 0;
+            var allNine = true;
             for (int i = 0; i < digits.Length; i++)
             {
-                digit *= 10;
-                digit += digits[i];
+                if (digits[i] != 9)
+                {
+                    allNine = false;
+                    break;
+                }
             }
             
-            digit += 1;
-            
-            var digitCopy = digit;
-            var length = 0;
-            while (digitCopy > 0)
+            if (allNine)
             {
-                length += 1;
-                digit /= 10;
+                var r = new int[digits.Length + 1];
+                r[0] = 1;
+                return r;
             }
             
-            var result = new int[length];
-            var j = result.Length - 1;
-            while (digit > 0)
+            var result = new int[digits.Length];
+            var last = 1;
+            for (int j = digits.Length - 1; j >= 0; j--)
             {
-                result[j] = digit % 10;
-                digit /= 10;
-                j -= 1;
+                last += digits[j];
+                result[j] = last % 10;
+                last /= 10;
             }
             
             return result;
