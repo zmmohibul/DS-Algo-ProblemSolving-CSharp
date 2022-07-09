@@ -9,9 +9,6 @@ namespace PlusOne
     {
         public int[] PlusOne(int[] digits) 
         {
-            // [4,3,2,1]
-            //         i
-            // digit = = 43
             var allNine = true;
             for (int i = 0; i < digits.Length; i++)
             {
