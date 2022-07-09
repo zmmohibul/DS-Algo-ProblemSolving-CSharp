@@ -9,54 +9,36 @@ namespace FindPivotIndex
     {
         public int PivotIndex(int[] nums) 
         {
-            int i = 0;
-            int j = nums.Length - 1;
-            int iSum = nums[i];
-            int jSum = nums[j];
-            while (i != j)
+            var iSumDict = new Dictionary<int, int>();
+            var iSum = 0;
+            for (var i = 0; i < nums.Length - 1; i++)
             {
-                if (iSum < jSum)
-                {
-                    i += 1;
-                    iSum += nums[i];
-                }
-                else if (jSum < iSum)
-                {
-                    j -= 1;
-                    jSum += nums[j];
-                }
-                else if (iSum == jSum && i + 1 == j - 1)
+                iSum += nums[i];
+                iSumDict[i] = iSum;
+            }
+            
+            if (iSum == 0)
+            {
+                return nums.Length - 1;
+            }
+            
+            var jSum = 0;
+            var j = 0;
+            for (j = nums.Length - 1; j > 1; j--)
+            {
+                jSum += nums[j];
+                if (iSumDict[j - 2] == jSum)
                 {
                     return j - 1;
                 }
-                else if (iSum == jSum)
-                {
-                    i += 1;
-                    iSum += nums[i];
-                    j -= 1;
-                    jSum += nums[j];
-                }
-                if (j - 1 == i && i == 0)
-                {
-                    if (jSum == 0)
-                    {
-                        return 0;
-                    }
-                }
-                
-                if (i + 1 == j && j == nums.Length)
-                {
-                    if (iSum == 0)
-                    {
-                        return j;
-                    }
-                }
-                
-                if (i + 1 == j)
-                {
-                    break;
-                }
             }
+            
+            jSum += nums[j];
+            if (jSum == 0)
+            {
+                return 0;
+            }
+            
             return -1;
         }
     }
