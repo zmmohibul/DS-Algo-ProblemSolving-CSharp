@@ -14,24 +14,32 @@ namespace LargestNumberAtLeastTwiceOfOthers
                 return 0;
             }
             
-            var numCopy = new int[nums.Length];
+            var largest = int.MinValue;
+            var largestIndex = -1;
+            var secondLargest = int.MinValue;
+            var secondLargestIndex = -1;
             for (int i = 0; i < nums.Length; i++)
             {
-                numCopy[i] = nums[i];
+                if (nums[i] > largest)
+                {
+                    secondLargest = largest;
+                    secondLargestIndex =largestIndex;
+                    largest = nums[i];
+                    largestIndex = i;
+                }
+                else if (nums[i] > secondLargest)
+                {
+                    secondLargest = nums[i];
+                    secondLargestIndex = i;
+                }
             }
-            
-            Array.Sort(numCopy);
-            var largest = numCopy[numCopy.Length - 1];
-            var secondLargest = numCopy[numCopy.Length - 2];
+
+            System.Console.WriteLine($"{largest} - {largestIndex}");
+            System.Console.WriteLine($"{secondLargest} - {secondLargestIndex}");
+
             if (secondLargest * 2 <= largest)
             {
-                for (int i = 0; i < nums.Length; i++)
-                {
-                    if (nums[i] == largest)
-                    {
-                        return i;
-                    }
-                }
+                return largestIndex;
             }
             
             return -1;
