@@ -20,16 +20,16 @@ namespace PlusOne
             }
             
             digit += 1;
-            int[] result;
-            if (digit % 10 == 0)
+            
+            var digitCopy = digit;
+            var length = 0;
+            while (digitCopy > 0)
             {
-                result = new int[digits.Length + 1];
-            }
-            else
-            {
-                result = new int[digits.Length];
+                length += 1;
+                digit /= 10;
             }
             
+            var result = new int[length];
             var j = result.Length - 1;
             while (digit > 0)
             {
