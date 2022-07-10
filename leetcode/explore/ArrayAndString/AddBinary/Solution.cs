@@ -10,74 +10,82 @@ namespace AddBinary
     {
         public string AddBinary(string a, string b) 
         {
-            int minLength = 0;
-            int maxLength = 0;
-            string maxString = string.Empty;
-            if (a.Length <= b.Length)
-            {
-                minLength = a.Length;
-                maxLength = b.Length;
-                maxString = b;
-            }
-            else
-            {
-                minLength = b.Length;
-                maxLength = a.Length;
-                maxString = a;
-            }
-            
-            var sb = new StringBuilder();
-            int carry = 0;
-            for (int i = minLength - 1; i >= 0; i--)
-            {
-                int n1 = (int) a[i];
-                int n2 = (int) b[i];
+            // 1101 
+            //  101
 
-                int sum = n1 + n2 + carry;
+            int i = a.Length - 1;
+            int j = b.Length - 1;
+            int carry = 0;
+            var result = string.Empty;
+            while (i >= 0 && j >= 0)
+            {
+                var n1 = char.GetNumericValue(a[i]);
+                var n2 = char.GetNumericValue(b[j]);
+                var sum = n1 + n2 + carry;
+                System.Console.WriteLine($"{n1} + {n2} + {carry} = {sum}");
                 if (sum == 3)
                 {
+                    // 11
+                    result = 1 + result;
                     carry = 1;
-                    sb.Append(1);
                 }
                 else if (sum == 2)
                 {
+                    // 10
+                    result = 0 + result;
                     carry = 1;
-                    sb.Append(0);
                 }
                 else if (sum < 2)
                 {
+                    // 1 || 0
+                    result = sum + result;
                     carry = 0;
-                    sb.Append(sum);
                 }
-            }
-
-            if (minLength == maxLength)
-            {
-                if (carry != 0)
-                {
-                    sb.Append(carry);
-                }
-                return sb.ToString().Reverse().ToString();
-            }
-
-            int j = maxLength - minLength - 1;
-            while (j >= 0)
-            {
-                int sum = carry + maxString[j];
-                if (sum == 2)
-                {
-                    carry = 1;
-                    sb.Append(0);
-                }
-                else if (sum < 2)
-                {
-                    carry = 0;
-                    sb.Append(sum);
-                }
+                i -= 1;
                 j -= 1;
             }
 
-            return sb.ToString().Reverse().ToString();
+            int x = -1;
+            string remString = string.Empty;
+            if (i >= 0)
+            {
+                x = i;
+                remString = a;
+            }
+
+            if (j >= 0)
+            {
+                x = j;
+                remString = b;
+            }
+
+            while (x >= 0)
+            {
+                var n1 = char.GetNumericValue(remString[x]);
+                var sum = n1 + carry;
+
+                if (sum == 2)
+                {
+                    // 10
+                    result = 0 + result;
+                    carry = 1;
+                }
+                else if (sum < 2)
+                {
+                    // 1 || 0
+                    result = sum + result;
+                    carry = 0;
+                }
+
+                x -= 1;
+            }
+
+            if (carry == 1)
+            {
+                result = 1 + result;
+            }
+
+            return result;
         }
     }
 }
