@@ -15,19 +15,27 @@ namespace ImplementStrStr
                 return 0;
             }
             
+            if (needle.Length > haystack.Length)
+            {
+                return -1;
+            }
+
             var sb = new StringBuilder(haystack.Substring(0, needle.Length));
-            
+            if (sb.Equals(needle))
+            {
+                return 0;
+            }
+
             int j = 0;
             for (int i = needle.Length; i < haystack.Length; i++)
             {
-                System.Console.WriteLine(sb);
+                sb.Remove(0, 1);
+                sb.Append(haystack[i]);
+                j += 1;
                 if (sb.Equals(needle))
                 {
                     return j;
                 }
-                sb.Remove(0, 1);
-                sb.Append(haystack[i]);
-                j += 1;
             }
 
             return -1;
