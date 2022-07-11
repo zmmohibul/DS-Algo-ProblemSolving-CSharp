@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ImplementStrStr
@@ -14,13 +15,19 @@ namespace ImplementStrStr
                 return 0;
             }
             
-            for (int i = 0; i <= haystack.Length - needle.Length; i++)
+            var sb = new StringBuilder(haystack.Substring(0, needle.Length));
+            
+            int j = 0;
+            for (int i = needle.Length; i < haystack.Length; i++)
             {
-                var subStr = haystack.Substring(i, needle.Length);
-                if (subStr.Equals(needle))
+                System.Console.WriteLine(sb);
+                if (sb.Equals(needle))
                 {
-                    return i;
+                    return j;
                 }
+                sb.Remove(0, 1);
+                sb.Append(haystack[i]);
+                j += 1;
             }
 
             return -1;
