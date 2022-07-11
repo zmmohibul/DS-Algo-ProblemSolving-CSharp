@@ -9,38 +9,63 @@ namespace MinimumSizeSubarraySum
     {
         public int MinSubArrayLen(int target, int[] nums)
         {
-            if (nums.Length == 0)
+            int sum = 0;
+            int i = 0;
+            int minCount = 0;
+            while (sum < target && i < nums.Length)
+            {
+                sum += nums[i];
+                i += 1;
+                minCount += 1;
+            }
+
+            if (i == nums.Length && sum < target)
             {
                 return 0;
             }
-            else if (nums.Length == 1)
+
+            int j = 0;
+            int count = minCount;
+            while (i < nums.Length)
             {
-                if (nums[0] == target)
+                if (sum >= target)
                 {
-                    return 1;
+                    sum -= nums[j];
+                    count -= 1;
+                    j += 1;
                 }
                 else
                 {
-                    return 0;
+                    sum += nums[i];
+                    count += 1;
+                    i += 1;
+                }
+                if (count < minCount && sum >= target)
+                {
+                    minCount = count;
                 }
             }
-
-            Array.Sort(nums);
-            int j = nums.Length - 1;
-            int sum = 0;
-            int count = 0;
-            while (j >= 0)
+            
+            while (j < nums.Length)
             {
-                sum += nums[j];
-                count += 1;
-                j -= 1;
+                sum -= nums[j];
                 if (sum >= target)
                 {
-                    return target;
+                    count -= 1;
+                }
+                else
+                {
+                    break;
+                }
+
+                j += 1;
+                if (count < minCount && sum >= target)
+                {
+                    minCount = count;
                 }
             }
 
-            return 0;
+            return minCount;
         }
     }
 }
