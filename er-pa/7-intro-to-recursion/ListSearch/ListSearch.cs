@@ -27,5 +27,32 @@ namespace ListSearch
                 return LinearSearch(nums, value, index + 1);
             }
         }
+
+        public int BinarySearch(List<int> nums, int value)
+        {
+            return BinarySearch(nums, value, 0, nums.Count - 1);
+        }
+
+        private int BinarySearch(List<int> nums, int value, int left, int right)
+        {
+            if (left > right)
+            {
+                return -1;
+            }
+
+            int mid = (left + right) / 2;
+            if (nums[mid] == value)
+            {
+                return mid;
+            }
+            else if (value < nums[mid])
+            {
+                return BinarySearch(nums, value, left, mid - 1);
+            }
+            else
+            {
+                return BinarySearch(nums, value, mid + 1, right);
+            }
+        }
     }
 }

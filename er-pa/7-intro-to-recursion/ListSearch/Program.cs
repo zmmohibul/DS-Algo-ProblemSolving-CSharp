@@ -9,8 +9,10 @@ namespace ListSearch
         {
             Console.WriteLine("Hello World!");
             ListSearch ls = new ListSearch();
-            var l = new List<int>(){1, 2, 3, 4, 5};
-            System.Console.WriteLine(ls.LinearSearch(l, 49));
+            var l = new List<int>(){1, 2, 3, 4, 5, 6, 7, 8, 9};
+            // System.Console.WriteLine(ls.LinearSearch(l, 49));
+            System.Console.WriteLine(ls.BinarySearch(l, 19));
+
         }
     }
 }
