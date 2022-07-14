@@ -8,13 +8,29 @@ namespace Exercises
 {
     public class Exercises
     {
+        public string IntegerToString(int n)
+        {
+            return IntegerToString(n, new StringBuilder());
+        }
+
+        public string IntegerToString(int n, StringBuilder sb)
+        {
+            if (n == 0)
+            {
+                return sb.ToString();
+            }
+            
+            sb.Insert(0, n%10);
+            return IntegerToString(n / 10, sb);
+        }
+
         public string StringReverse(string str)
         {
             var sb = new StringBuilder(str);
             return StringReverse(sb, 0, sb.Length - 1);
         }
 
-        public string StringReverse(StringBuilder sb, int p1, int p2)
+        private string StringReverse(StringBuilder sb, int p1, int p2)
         {
             if (p1 >= p2)
             {

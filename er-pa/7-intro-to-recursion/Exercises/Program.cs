@@ -11,6 +11,7 @@ namespace Exercises
             System.Console.WriteLine(es.DigitSum(1729));
             System.Console.WriteLine(es.DigitalRoot(1729));
             System.Console.WriteLine(es.StringReverse("abcdef"));
+            System.Console.WriteLine(es.IntegerToString(1234));
         }
     }
 }
