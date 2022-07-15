@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MinimumTimeVisitingAllPoints
+namespace TwoSumII
 {
     class Program
     {

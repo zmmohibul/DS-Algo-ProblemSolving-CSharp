@@ -9,23 +9,24 @@ namespace RotateArray
     {
         public void Rotate(int[] nums, int k) 
         {
-            if (nums.Length < 1)
-            {
-                return;
-            }
-            
+            var result = new int[nums.Length];
+            int i = nums.Length - k;
             for (int j = 0; j < k; j++)
             {
-                int n = nums[0];
-                int n1 = 0;
-                for (int i = 1; i < nums.Length; i++)
-                {
-                    n1 = nums[i];
-                    nums[i] = n;
-                    n = n1;
-                }
-                nums[0] = n;
+                result[j] = nums[i];
+                i += 1;
             }
+
+            i = k;
+            int a = 0;
+            while (i < nums.Length)
+            {
+                result[i] = nums[a];
+                a += 1;
+                i += 1;
+            }
+
+            Array.Copy(result, nums, nums.Length);
         }
     }
 }
