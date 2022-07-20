@@ -7,44 +7,27 @@ namespace SubsetSum
 {
     public class Solution
     {
-        public bool SubsetSum(HashSet<int> numbers, int target)
+        public int SubsetSumWays(List<int> numbers, int target)
         {
-            if (numbers.Count == 0)
-            {
-                return target == 0;
-            }
-            else
-            {
-                var num = numbers.First();
-                numbers.Remove(num);
-                return SubsetSum(numbers, target) || SubsetSum(numbers, target - num);
-            }
+            return SubsetSumWays(numbers, target, 0, 0);
         }
 
-        public int SubsetSumWays(HashSet<int> numbers, int target)
+        public int SubsetSumWays(List<int> numbers, int target, int index, int count)
         {
-            return SubsetSumWays(numbers, target, 0);
-        }
-
-        private int SubsetSumWays(HashSet<int> numbers, int target, int count)
-        {
-            if (numbers.Count == 0)
+            if (index == numbers.Count)
             {
+                if (target == 0)
+                {
+                    count += 1;
+                }
                 return count;
             }
             else
             {
-                var first = numbers.First();
-                numbers.Remove(first);
-                if (target - first == 0)
-                {
-                    count += 1;
-                }
-                var c1 = SubsetSumWays(numbers, target, count);
-                var c2 = SubsetSumWays(numbers, target - first, count);
-                return c1 + c2;
-            }
+                var num = numbers[index];
 
+                return SubsetSumWays(numbers, target, index + 1, count) + SubsetSumWays(numbers, target - num, index + 1, count);
+            }
         }
     }
 }
