@@ -38,25 +38,20 @@ namespace ListMnemonics
         public List<string> GetMnemonics(StringBuilder str, Dictionary<char, string> numChars)
         {
             var result = new List<string>();
-            if (str.Length == 1)
+            if (str.Length == 0)
             {
-                foreach (char c in numChars[str[0]])
-                {
-                    result.Add(c + "");
-                }
+                result.Add("");
             }
-
-            for (int i = 0; i < str.Length; i++)
+            else
             {
-                char c = str[0];
-                var ce = numChars[c];
+                var charsFromNum =  numChars[str[0]];
                 str.Remove(0, 1);
-                var r = GetMnemonics(str, numChars);
-                foreach (var cc in ce)
+                var mnemonicsOfRest = GetMnemonics(str, numChars);
+                foreach(var ch in charsFromNum)
                 {
-                    foreach (var s in r)
+                    foreach(var mn in mnemonicsOfRest)
                     {
-                        result.Add(cc + s);
+                        result.Add(ch + mn);
                     }
                 }
             }
