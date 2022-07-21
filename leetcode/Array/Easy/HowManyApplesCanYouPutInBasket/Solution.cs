@@ -29,6 +29,16 @@ namespace HowManyApplesCanYouPutInBasket
             return count;
         }
         
-        
+        public int MaxNumberOfApples(int[] weight, int currWeight, int index, int count) 
+        {
+            if (currWeight > 5000 || index == weight.Length)
+            {
+                return count;
+            }
+            else
+            {
+                return Math.Max(MaxNumberOfApples(weight, currWeight + weight[index], index + 1, count + 1), MaxNumberOfApples(weight, currWeight, index + 1, count));
+            }
+        }
     }
 }
