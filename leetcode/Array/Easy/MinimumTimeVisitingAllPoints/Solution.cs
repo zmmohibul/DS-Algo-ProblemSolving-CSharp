@@ -29,7 +29,20 @@ namespace MinimumTimeVisitingAllPoints
                 {
                     var p2max = Math.Max(point2[0], point2[0]);
                     var p1Min = Math.Max(point1[0], point1[1]);
-                    var diff = ;
+                    int diff = 0;
+                    if (p2max <= 0 && p1Min >= 0)
+                    {
+                        diff += p1Min;
+                        diff += Math.Abs(p2max);
+                    }
+                    else if (p2max <= 0 && p1Min < 0)
+                    {
+                        diff = diff + (Math.Abs(p2max) - Math.Abs(p1Min));
+                    }
+                    else
+                    {
+                        
+                    }
                     time += diff;
 
                     point1[0] += diff;
