@@ -10,6 +10,7 @@ namespace BaseballGame
         public int CalPoints(string[] ops) 
         {
             var records = new List<int>();
+            var sum = 0;
             foreach (var op in ops)
             {
                 if (op.Equals("+"))
@@ -18,30 +19,29 @@ namespace BaseballGame
                     var secondLast = records[records.Count - 2];
                     var newScore = firstLast + secondLast;
                     records.Add(newScore);
+                    sum += newScore;
                 }
                 else if (op.Equals("D"))
                 {
                     var prevScore = records.Last();
                     prevScore *= 2;
                     records.Add(prevScore);
+                    sum += prevScore;
                 }
                 else if (op.Equals("C"))
                 {
+                    var prevScore = records.Last();
                     records.RemoveAt(records.Count - 1);
+                    sum -= prevScore;
                 }
                 else
                 {
                     var score = Convert.ToInt32(op);
                     records.Add(score);
+                    sum += score;
                 }
             }
-
-            var sum = 0;
-            foreach (var record in records)
-            {
-                sum += record;
-            }
-
+            
             return sum;
         }
     }
