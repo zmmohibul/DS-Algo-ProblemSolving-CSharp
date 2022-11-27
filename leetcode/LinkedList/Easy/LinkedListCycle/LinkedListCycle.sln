@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32825.248
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedListCycle", "LinkedListCycle\LinkedListCycle.csproj", "{0857A33F-F994-42C3-84A6-4CA0BAEA2C11}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0857A33F-F994-42C3-84A6-4CA0BAEA2C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0857A33F-F994-42C3-84A6-4CA0BAEA2C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0857A33F-F994-42C3-84A6-4CA0BAEA2C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0857A33F-F994-42C3-84A6-4CA0BAEA2C11}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C6E0557-D746-4D09-9F25-02DD5662EA96}
+	EndGlobalSection
+EndGlobal
