@@ -10,62 +10,29 @@ namespace FindMiddleIndexInArray
     {
         public static int FindMiddleIndex(int[] nums)
         {
-            var sumIndex = new Dictionary<int, int>();
-            var sum = 0;
+            var leftIndexSum = new Dictionary<int, int>();
+            var leftSum = 0;
             for (int i = 0; i < nums.Length; i++)
             {
-                sumIndex[i] = sum;
-                sum += nums[i];
+                leftIndexSum[i] = leftSum;
+                leftSum += nums[i];
             }
 
-            foreach (var (key, val) in sumIndex)
+            var rightIndexSum = new Dictionary<int, int>();
+            var rightSum = 0;
+            for (int i = nums.Length - 1; i >= 0; i--)
             {
-                Console.Write($"{val} - {key}, ");
+                rightIndexSum[i] = rightSum;
+                rightSum += nums[i];
             }
-            Console.WriteLine();
 
-            var jSum = 0;
-            for (int j = nums.Length - 1; j > 0; j--)
+            foreach (var (ind, sum) in leftIndexSum)
             {
-                if (sumIndex[j] == jSum)
+                if (rightIndexSum[ind] == sum)
                 {
-                    return j;
+                    return ind;
                 }
-                jSum += nums[j];
             }
-
-
-
-            //int iSum = 0;
-            //for (int i = 0; i < nums.Length; i++)
-            //{
-            //    int jSum = 0;
-            //    for (int j = i + 1; j < nums.Length; j++)
-            //    {
-            //        jSum += nums[j];
-            //    }
-
-            //    if (jSum == iSum)
-            //    {
-            //        return i;
-            //    }
-
-            //    iSum += nums[i];
-            //}
-
-            //var sumIndex = new Dictionary<int, int>();
-            //var sum = 0;
-            //for (int i = 0; i < nums.Length; i++)
-            //{
-            //    sum += nums[i];
-            //    sumIndex[sum] = i;
-            //}
-
-            //foreach(var (key, val) in sumIndex)
-            //{
-            //    Console.Write($"{val} - {key}, ");
-            //}
-            //Console.WriteLine();
 
             return -1;
         }
