@@ -54,4 +54,5 @@ namespace FindKBeautyOfNumber
             return result;
         }
     }
+
 }
